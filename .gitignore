@@ -1,0 +1,41 @@
+# Compiled Powerlevel10k configuration
+.p10k.zsh.zwc
+
+# Temporary files and backups
+*~
+.#*
+*.swp
+*.tmp
+*.bak
+
+# Log files
+*.log
+
+# Compiled binaries and object files
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.a
+*.lib
+
+# Cache directories
+__pycache__/
+.cache/
+.npmrc
+node_modules/
+
+
+# IDE-specific files (adjust as needed)
+.idea/
+.vscode/
+.DS_Store  # macOS specific
+
+# System files (often specific to the OS)
+.Thumbs.db  # Windows specific
+desktop.ini  # Windows specific
+
+# Nix-specific files
+.nix-def/
+result*
