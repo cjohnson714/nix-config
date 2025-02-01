@@ -69,6 +69,7 @@
     wmname
     xbindkeys
     xclip
+    xdg-user-dirs
     xorg.xbacklight
     xorg.xdpyinfo
     xorg.xrandr
