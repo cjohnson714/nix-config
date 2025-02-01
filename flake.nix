@@ -16,49 +16,54 @@
     };
   };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    home-manager,
-    chaotic,
-    ...
-  }: {
-    nixosConfigurations = {
-      nixos-vm = let
-        username = "integrus";
-        specialArgs = {inherit username;};
-      in
-        nixpkgs.lib.nixosSystem {
-          inherit specialArgs;
-          system = "x86_64-linux";
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      home-manager,
+      chaotic,
+      ...
+    }:
+    {
+      nixosConfigurations = {
+        nixos-vm =
+          let
+            username = "integrus";
+            specialArgs = { inherit username; };
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit specialArgs;
+            system = "x86_64-linux";
 
-          modules = [
-            ./hosts/nixos-vm
-            ./users/${username}/nixos.nix
-            chaotic.nixosModules.default
+            modules = [
+              ./hosts/nixos-vm
+              ./users/${username}/nixos.nix
+              chaotic.nixosModules.default
 
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
 
-              home-manager.extraSpecialArgs = inputs // specialArgs;
-              home-manager.users.${username} = import ./users/${username}/home.nix;
-            }
-          ];
-        };
+                home-manager.extraSpecialArgs = inputs // specialArgs;
+                home-manager.users.${username} = import ./users/${username}/home.nix;
+              }
+            ];
+          };
 
-    /*# Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .#your-username@your-hostname'
-    homeConfigurations = {
-      # FIXME replace with your username@hostname
-      "integrus@nixos" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
-        # > Our main home-manager configuration file <
-        modules = [./home-manager/home.nix];
+        /*
+          # Standalone home-manager configuration entrypoint
+          # Available through 'home-manager --flake .#your-username@your-hostname'
+          homeConfigurations = {
+            # FIXME replace with your username@hostname
+            "integrus@nixos" = home-manager.lib.homeManagerConfiguration {
+              pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+              extraSpecialArgs = {inherit inputs outputs;};
+              # > Our main home-manager configuration file <
+              modules = [./home-manager/home.nix];
+            };
+          };
+        */
       };
-    };*/
     };
-  };
 }

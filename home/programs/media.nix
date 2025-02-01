@@ -22,7 +22,7 @@
   programs = {
     mpv = {
       enable = true;
-      defaultProfiles = ["gpu-hq"];
+      defaultProfiles = [ "gpu-hq" ];
       scripts = [
         pkgs.mpvScripts.mpris
         pkgs.mpvScripts.uosc

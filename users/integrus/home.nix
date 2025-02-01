@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
 
   # Integrus Home Manager Configuration
   # This file imports and configures all home-manager modules.
@@ -7,11 +8,11 @@
     ../../home/core.nix # Core home-manager settings
 
     ../../home/programs # Shared program configurations
-    ../../home/shell    # Shell configurations
+    ../../home/shell # Shell configurations
 
-    ../../home/bspwm   # bspwm-related configurations
-    ../../home/dunst   # Dunst notification daemon configuration
-    ../../home/rofi    # Rofi launcher configuration
+    ../../home/bspwm # bspwm-related configurations
+    ../../home/dunst # Dunst notification daemon configuration
+    ../../home/rofi # Rofi launcher configuration
   ];
 
   # ==========================================================================
@@ -19,7 +20,7 @@
   # ==========================================================================
 
   programs.git = {
-    userName  = "cjohnson714";
+    userName = "cjohnson714";
     userEmail = "cjohnson714@gmail.com";
   };
 }

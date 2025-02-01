@@ -1,4 +1,9 @@
-{ pkgs, lib, username, ... }:
+{
+  pkgs,
+  lib,
+  username,
+  ...
+}:
 
 {
   # Shared System Configuration Module
@@ -23,10 +28,15 @@
   # ==========================================================================
 
   users.users.${username} = {
-    isNormalUser  = true;
-    description   = username;
-    extraGroups = [ "networkmanager" "wheel" "audio" "video" ]; # Standard desktop groups
-    shell         = pkgs.zsh; # Use Zsh
+    isNormalUser = true;
+    description = username;
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "audio"
+      "video"
+    ]; # Standard desktop groups
+    shell = pkgs.zsh; # Use Zsh
   };
 
   nix.settings.trusted-users = [ username ]; # Allow user to specify additional substituters
@@ -36,8 +46,11 @@
   # ==========================================================================
 
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ]; # Enable Nix flakes
-    substituters      = [ "https://cache.nixos.org" ]; # Use official Nix cache
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ]; # Enable Nix flakes
+    substituters = [ "https://cache.nixos.org" ]; # Use official Nix cache
 
     # trusted-public-keys = [ # Included for reference (commented out)
     #   "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -48,8 +61,8 @@
 
   nix.gc = {
     automatic = true;
-    dates      = "weekly";
-    options    = "--delete-older-than 7d"; # Delete old packages
+    dates = "weekly";
+    options = "--delete-older-than 7d"; # Delete old packages
   };
 
   nixpkgs.config.allowUnfree = true; # Allow non-free software
@@ -61,34 +74,48 @@
   time.timeZone = "US/Eastern";
 
   i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = { # Additional locale settings (if needed)
-    LC_ADDRESS      = "en_US.UTF-8";
+  i18n.extraLocaleSettings = {
+    # Additional locale settings (if needed)
+    LC_ADDRESS = "en_US.UTF-8";
     LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT  = "en_US.UTF-8";
-    LC_MONETARY     = "en_US.UTF-8";
-    LC_NAME         = "en_US.UTF-8";
-    LC_NUMERIC      = "en_US.UTF-8";
-    LC_PAPER        = "en_US.UTF-8";
-    LC_TELEPHONE    = "en_US.UTF-8";
-    LC_TIME         = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
   };
 
-  console.colors = [ # Custom console colors
-    "1d2021" "3c3836" "504945" "665c54"  # Darker shades
-    "bdae93" "d5c4a1" "ebdbb2" "fbf1c7"  # Lighter shades
-    "fb4934" "fe8019" "fabd2f" "b8bb26"  # Color palette
-    "8ec07c" "83a598" "d3869b" "d65d0e"  # Color palette
+  console.colors = [
+    # Custom console colors
+    "1d2021"
+    "3c3836"
+    "504945"
+    "665c54" # Darker shades
+    "bdae93"
+    "d5c4a1"
+    "ebdbb2"
+    "fbf1c7" # Lighter shades
+    "fb4934"
+    "fe8019"
+    "fabd2f"
+    "b8bb26" # Color palette
+    "8ec07c"
+    "83a598"
+    "d3869b"
+    "d65d0e" # Color palette
   ];
 
   services.printing.enable = true; # Enable printing (CUPS)
-
 
   # ==========================================================================
   #                                    Fonts
   # ==========================================================================
 
   fonts = {
-    packages = with pkgs; [ # Install custom fonts
+    packages = with pkgs; [
+      # Install custom fonts
       material-design-icons
       noto-fonts
       noto-fonts-cjk-sans
@@ -100,11 +127,21 @@
 
     enableDefaultPackages = false; # Disable default font packages
 
-    fontconfig.defaultFonts = { # Set default font families
-      serif      = [ "Noto Serif" "Noto Color Emoji" ];
-      sansSerif  = [ "Noto Sans" "Noto Color Emoji" ];
-      monospace  = [ "JetBrainsMono Nerd Font" "Noto Color Emoji" ];
-      emoji      = [ "Noto Color Emoji" ];
+    fontconfig.defaultFonts = {
+      # Set default font families
+      serif = [
+        "Noto Serif"
+        "Noto Color Emoji"
+      ];
+      sansSerif = [
+        "Noto Sans"
+        "Noto Color Emoji"
+      ];
+      monospace = [
+        "JetBrainsMono Nerd Font"
+        "Noto Color Emoji"
+      ];
+      emoji = [ "Noto Color Emoji" ];
     };
   };
 
@@ -113,23 +150,25 @@
   # ==========================================================================
 
   programs = {
-    zsh.enable  = true;
+    zsh.enable = true;
     dconf.enable = true;
   };
 
-  networking.firewall.enable = false;  # Disable firewall (configure ports as needed)
+  networking.firewall.enable = false; # Disable firewall (configure ports as needed)
 
-  services.openssh = { # SSH server config
+  services.openssh = {
+    # SSH server config
     enable = true;
     settings = {
-      X11Forwarding      = true; # Enable X11 forwarding
-      PermitRootLogin    = "no"; # Disallow root login
+      X11Forwarding = true; # Enable X11 forwarding
+      PermitRootLogin = "no"; # Disallow root login
       PasswordAuthentication = false; # Disable password auth
     };
     openFirewall = true; # Open SSH port in firewall
   };
 
-  environment.systemPackages = with pkgs; [ # System packages
+  environment.systemPackages = with pkgs; [
+    # System packages
     easyeffects
     fastfetch
     git
@@ -144,18 +183,19 @@
   ];
 
   services = {
-    pulseaudio.enable      = false; # Disable PulseAudio
+    pulseaudio.enable = false; # Disable PulseAudio
     power-profiles-daemon.enable = true;
-    dbus.packages      = [ pkgs.gcr ];
-    udisks2.enable      = true;
-    geoclue2.enable      = true;
+    dbus.packages = [ pkgs.gcr ];
+    udisks2.enable = true;
+    geoclue2.enable = true;
 
-    pipewire = { # PipeWire audio server
-      enable          = true;
-      alsa.enable      = true;
+    pipewire = {
+      # PipeWire audio server
+      enable = true;
+      alsa.enable = true;
       alsa.support32Bit = true;
-      pulse.enable      = true;
-      jack.enable      = true;
+      pulse.enable = true;
+      jack.enable = true;
       # media-session.enable = true; # Enabled by default
     };
 
@@ -163,7 +203,7 @@
   };
 
   security = {
-    polkit.enable          = true;
+    polkit.enable = true;
     pam.services.ly.enableGnomeKeyring = true; # LY integration
   };
 }

@@ -3,14 +3,13 @@
 {
   # NixOS System Configuration
 
-  imports =
-    [
-      ../../modules/system.nix
-      ../../modules/bspwm.nix
-      #../../modules/xfce.nix  # Optional: XFCE module (commented out)
+  imports = [
+    ../../modules/system.nix
+    ../../modules/bspwm.nix
+    #../../modules/xfce.nix  # Optional: XFCE module (commented out)
 
-      ./hardware-configuration.nix # Hardware scan results
-    ];
+    ./hardware-configuration.nix # Hardware scan results
+  ];
 
   # =========================================================================
   #                               Bootloader

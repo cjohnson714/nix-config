@@ -2,7 +2,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   # wallpaper, binary file
   home.file.".config/bspwm/wallpaper.png".source = ../../wallpaper.png;
   home.file.".config/bspwm/bspwmrc" = {
@@ -18,7 +19,7 @@
     source = ./scripts;
     # copy the scripts directory recursively
     recursive = true;
-    executable = true;  # make all scripts executable
+    executable = true; # make all scripts executable
   };
 
   # set cursor size and dpi for 4k monitor

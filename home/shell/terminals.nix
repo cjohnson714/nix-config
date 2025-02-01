@@ -9,8 +9,8 @@ in
   programs.kitty = {
     enable = true;
     font = {
-        name = font;
-        size = 11;
+      name = font;
+      size = 11;
     };
     settings = {
       scrollback_lines = 10000;

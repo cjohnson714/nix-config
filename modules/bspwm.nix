@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
 
   # bspwm Configuration Module
   # Defines shared services, programs, and settings for a bspwm setup.
@@ -12,7 +13,8 @@
 
   services.displayManager = {
     defaultSession = "none+bspwm"; # Start bspwm directly
-    ly = { # Configure LY display manager
+    ly = {
+      # Configure LY display manager
       enable = true;
       settings = {
         animation = "matrix"; # LY animation style
@@ -28,7 +30,8 @@
       runXdgAutostartIfNone = true; # Autostart XDG apps (no DE)
     };
 
-    displayManager = { # Disable other display managers
+    displayManager = {
+      # Disable other display managers
       lightdm.enable = false;
       gdm.enable = false;
     };
@@ -38,17 +41,17 @@
     };
 
     xkb = {
-      layout  = "us"; # Kayboard layout
+      layout = "us"; # Kayboard layout
       variant = ""; # Keyboard variant
     };
   };
-
 
   # ==========================================================================
   #                               System Packages
   # ==========================================================================
 
-  environment.systemPackages = with pkgs; [ # bspwm and related tools
+  environment.systemPackages = with pkgs; [
+    # bspwm and related tools
     acpi
     arandr
     dex
@@ -72,14 +75,15 @@
     xsettingsd
   ];
 
-
   # ==========================================================================
   #                               Thunar File Manager
   # ==========================================================================
 
-  programs.thunar = { # Thunar configuration
+  programs.thunar = {
+    # Thunar configuration
     enable = true;
-    plugins = with pkgs.xfce; [ # Thunar plugins
+    plugins = with pkgs.xfce; [
+      # Thunar plugins
       thunar-archive-plugin
       thunar-volman
     ];
@@ -87,12 +91,12 @@
 
   programs.xfconf.enable = true; # Enable Xfconf for persistent Thunar settings
 
-
   # ==========================================================================
   #                               System Services
   # ==========================================================================
 
-  services = { # System services
+  services = {
+    # System services
     accounts-daemon.enable = true;
     gvfs.enable = true;
     libinput.enable = true;

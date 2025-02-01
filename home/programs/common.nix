@@ -3,7 +3,8 @@
   pkgs,
   catppuccin-bat,
   ...
-}: {
+}:
+{
   home.packages = with pkgs; [
     # archives
     zip
@@ -75,7 +76,7 @@
         Host github.com
           IdentityFile ~/.ssh/id_ed25519
           AddKeysToAgent yes
-        '';
+      '';
     };
     aria2.enable = true;
 
