@@ -122,10 +122,10 @@ super + {Left,Down,Up,Right}
 
 # Screenshot
 Print
-  scrot "$(xdg-user-dir PICTURES)/Screenshots/screenshot-$(date +%F_%T).png"
+	scrot "$(xdg-user-dir PICTURES)/Screenshots/screenshot-$(date +%F_%T).png"
 
 super + Print
-    ~/.config/bspwm/scripts/screenshot.sh
+	bash ~/.config/bspwm/scripts/screenshot.sh
 
 #
 # Special hotkeys

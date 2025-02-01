@@ -174,6 +174,7 @@
     git
     lm_sensors
     libsecret
+    nixfmt-rfc-style
     nnn
     scrot
     sysstat
