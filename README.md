@@ -1,80 +1,112 @@
+# ❄️ NixOS Configuration
 
-# NixOS Config
+This repository contains my evolving NixOS configuration, structured around **Home Manager** and **flakes** to maintain modularity and reproducibility. At present, this setup is optimized for use within a virtual machine, though I am progressively refining it for deployment on bare metal.
 
-This repository contains my personal NixOS configuration, utilizing flakes for managing system and user environments. It's designed to be easy to clone and use with minimal setup steps. Most of the content is derived from [ryan4yin/nix-config](https://github.com/ryan4yin/nix-config).
+---
 
-## Directory Structure
+## 🗂️ Directory Structure
 
-```plaintext
+```
 .
-├── flake.nix                            # Main flake configuration
-├── flake.lock                           # Flake lock file for consistent builds
-├── home                                 # Home Manager configurations for individual setups
-│   ├── bspwm                            # BSPWM window manager setup
-│   ├── programs                         # Configuration for programs and applications
-│   ├── rofi                             # Rofi launcher setup
-│   ├── shell                            # Shell setup, including terminals and prompts
-│   ├── core.nix                         # Home Manager core initialization
-├── host                                 # Host-specific configurations
-│   ├── nixos-vm                         # NixOS VM configuration for this machine
-│   │   ├── default.nix                  # Main system configuration for nixos-vm
-│   │   └── hardware-configuration.nix   # Auto-generated hardware config for nixos-vm
-├── modules                              # Shared system configurations and custom modules
-│   ├── bspwm.nix                        # Installation and enabling of BSPWM
-│   └── system.nix                       # Shared system-level settings
-├── users                                # User-specific configuration files
-│   └── integrus                         # User-specific Home Manager and NixOS settings
-│       ├── home.nix                     # Imports all Home Manager configurations for user
-│       └── nixos.nix                    # User-specific NixOS settings
-├── wallpaper.jpg                        # Wallpaper image used for desktop background
+├── 📜 flake.nix         # Centralized configuration entry point
+├── 🔒 flake.lock        # Locks dependency versions for reproducibility
+├── 🏠 home              # User environment configurations managed by Home Manager
+│   ├── 🖥️ bspwm         # Window manager setup
+│   ├── 🛠️ programs      # Application configurations
+│   ├── 🚀 rofi          # Launcher settings
+│   ├── 🐚 shell         # Shell configurations
+│   ├── ⚙️ core.nix      # Core Home Manager settings
+├── 🏠 hosts             # Host-specific configurations
+│   └── 💻 nixos-vm      # Virtual machine setup
+│       ├── 📄 default.nix
+│       └── 🔧 hardware-configuration.nix
+├── 📦 modules           # System-wide settings and tweaks
+│   ├── 🖥️ bspwm.nix     # BSPWM configuration
+│   └── ⚙️ system.nix    # General system settings
+├── 👤 users             # User-specific configurations
+│   └── 🏠 integrus      # Personalized setup
+│       ├── 🏡 home.nix  
+│       └── 🛠️ nixos.nix 
+└── 🖼️ wallpaper.jpg     # Desktop wallpaper
 ```
 
-## Setting up NixOS with Flakes
+---
 
-To use this configuration on a fresh NixOS system, follow these steps:
+## 🚀 Installation & Usage
 
-1. **Clone the Repository:**
+This guide assumes that you have already installed NixOS and manually handled disk partitioning and mounting according to your preferences. If you have not yet installed NixOS, refer to the [official installation guide](https://nixos.org/download.html).
 
-   Clone this repository to your machine:
+### 1. 📥 Clone the Repository
 
-   ```bash
-   git clone https://github.com/yourusername/nix-config.git
-   cd nix-config
-   ```
+```bash
+git clone https://github.com/yourusername/nix-config.git
+cd nix-config
+```
 
-2. **Enable Flakes (if needed):**
+### 2. 🛠️ Generate a Hardware Configuration
 
-   If you haven't already enabled flakes in your NixOS installation, you can do so by adding the following to your `configuration.nix`:
+Once NixOS is installed, generate a new `hardware-configuration.nix` that reflects your system's hardware:
 
-   ```nix
-   nix.settings.experimentalFeatures = [ "flakes" ];
-   ```
+```bash
+sudo nixos-generate-config
+```
 
-   Then, run:
+Replace the default `hardware-configuration.nix` in this repository with the one generated for your system:
 
-   ```bash
-   sudo nixos-rebuild switch
-   ```
+```bash
+rm hosts/nixos-vm/hardware-configuration.nix
+cp /etc/nixos/hardware-configuration.nix hosts/nixos-vm/
+```
 
-   This will enable flakes support, allowing you to use the `--flake` option with `nixos-rebuild`.
+This step is crucial for ensuring that the configuration properly accounts for your system's hardware, including disk layouts and network interfaces, preventing potential boot failures due to mismatched settings.
 
-3. **Apply the Configuration:**
+### 3. ⚡ Apply the Configuration
 
-   To apply the configuration, simply run the following command:
+```bash
+sudo nixos-rebuild switch --flake .#nixos-vm --option experimental-features "nix-command flakes"
+```
 
-   ```bash
-   sudo nixos-rebuild switch --flake .#nixos-vm
-   ```
+This command applies the system configuration, integrating both system-level settings and Home Manager user configurations. If issues arise, common culprits include incorrect disk identifiers, missing network configurations, or hardware incompatibilities.&#x20;
 
-   This will rebuild and switch to the NixOS configuration specified for the `nixos-vm` host.
+---
 
-## Notes
+## 💡 Notes
 
-- The `flake.nix` file is the entry point for both system and Home Manager configurations.
-- The structure is modularized so that you can easily modify individual components like `bspwm`, `rofi`, or `programs`.
-- The configuration is primarily intended for use with virtual machines (VMs) but can be adapted for physical machines.
-- **Home Manager** is used for user-specific configurations, allowing for a consistent and portable setup across systems.
-  
-## Reference
+This configuration is currently optimized for a virtual machine but will be expanded for bare-metal deployment in the future. To adapt this setup for a physical machine, define a new host entry in `flake.nix`, create a corresponding directory within `hosts/`, and adjust configurations to match your hardware specifications.
 
-Most of this configuration is adapted from [ryan4yin/nix-config](https://github.com/ryan4yin/nix-config).
+### 🏗️ Defining a New Host
+
+To add a new host, modify `flake.nix` and introduce a corresponding directory within `hosts/`. Below is a simplified example:
+
+```nix
+nixosConfigurations = {
+  my-machine = nixpkgs.lib.nixosSystem {
+    system = "x86_64-linux";
+    modules = [
+      ./hosts/my-machine
+      ./users/integrus/nixos.nix
+      home-manager.nixosModules.home-manager
+      {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.users.integrus = import ./users/integrus/home.nix;
+      }
+    ];
+  };
+};
+```
+
+Ensure you create `hosts/my-machine/default.nix` and tailor it to your system’s needs.
+
+---
+
+## 🙏 Credits & Inspiration
+
+This setup draws significant inspiration from [ryan4yin/nix-config](https://github.com/ryan4yin/nix-config). If you seek a more refined, well-documented configuration, I highly recommend reviewing their repository as a reference.
+
+---
+
+## 📜 License
+
+This configuration is licensed under the MIT License. See the [LICENSE](LICENSE) file for details. Certain aspects of this setup are derived from [ryan4yin/nix-config](https://github.com/ryan4yin/nix-config), which is also licensed under MIT.
+
