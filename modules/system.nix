@@ -87,7 +87,13 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  catppuccin.tty.enable = true;
+  catppuccin = {
+    enable = true;
+    accent = "mauve";
+    flavor = "mocha";
+    tty.enable = true;
+    cache.enable = true;
+  };
 
   services.printing.enable = true; # Enable printing (CUPS)
 
