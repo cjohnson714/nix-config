@@ -38,7 +38,7 @@
               ./hosts/nixos-vm
               ./users/${username}/nixos.nix
               chaotic.nixosModules.default
-              catppuccin.nixosModules.catppuccin # ✅ Enable Catppuccin system-wide
+              catppuccin.nixosModules.catppuccin
 
               home-manager.nixosModules.home-manager
               {
@@ -48,7 +48,7 @@
                 home-manager.users.${username} = {
                   imports = [
                     ./users/${username}/home.nix
-                    catppuccin.homeManagerModules.catppuccin # ✅ Enable Catppuccin for Home Manager
+                    catppuccin.homeManagerModules.catppuccin
                   ];
                 };
               }
