@@ -39,3 +39,4 @@ feh --no-fehbg --bg-fill ~/.config/bspwm/wallpaper.jpg
 #dex -a -s /etc/xdg/autostart/:~/.config/autostart/  &
 #xinput --set-prop "12" "libinput Accel Profile Enabled" 0 1 0 &
 #xsettingsd &
+systemctl --user restart polybar

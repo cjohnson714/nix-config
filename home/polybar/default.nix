@@ -5,21 +5,22 @@
 }:
 {
 
+  home.file.".config/polybar/scripts" = {
+    source = ./scripts;
+    recursive = true;
+    executable = true;
+  };
   services.polybar = {
     enable = true;
     script = ''
-      # Kill any existing Polybar instances
-      pkill -x polybar
+      # Terminate already running bar instances
+      killall -q polybar
 
-      # Wait until Polybar shuts down completely
-      while pgrep -x polybar >/dev/null; do sleep 1; done
-
-      # Reset bspwm padding
-      bspc config top_padding 0  # Remove top padding
-      bspc config bottom_padding 32  # Adjust for bottom bar height
+      # Wait until the processes have been shut down
+      while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
       # Launch Polybar
-      polybar bottom &
+      polybar bottom -c ~/.config/polybar/config.ini &
     '';
 
     settings = {
@@ -39,9 +40,9 @@
         padding-left = "0px";
         padding-right = "10px";
         module-margin = "4px";
-        modules-left = "start spacer bspwm spacer xwindow";
+        modules-left = "start bspwm xwindow";
         modules-center = "";
-        modules-right = "pulseaudio spacer tray spacer date";
+        modules-right = "pulseaudio tray date";
         scroll-up = "#bspwm.prev";
         scroll-down = "#bspwm.next";
       };
@@ -168,6 +169,16 @@
         content-background = "\${colors.blue}";
         padding = 0; # Add some padding to make it look clean
         click-left = "~/.config/polybar/scripts/launch_rofi.sh"; # Script to launch app launcher
+      };
+
+      "module/player-mpris-tail" = {
+        type = "custom/script";
+        # The Correct Way to Call the Script:
+        exec = "${pkgs.python39}/bin/python3 ~/.config/polybar/scripts/player-mpris-tail.py -f '{icon} {artist} - {title}'";
+        tail = true; # Important for real-time updates
+        click-left = "${pkgs.python39}/bin/python3 ~/.config/polybar/scripts/player-mpris-tail.py previous"; # Fixed click commands
+        click-right = "${pkgs.python39}/bin/python3 ~/.config/polybar/scripts/player-mpris-tail.py next"; # Fixed click commands
+        click-middle = "${pkgs.python39}/bin/python3 ~/.config/polybar/scripts/player-mpris-tail.py play-pause"; # Fixed click commands
       };
     };
   };
