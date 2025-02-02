@@ -9,6 +9,7 @@
 
     ../../home/programs # Shared program configurations
     ../../home/shell # Shell configurations
+    ../../home/fonts
 
     ../../home/bspwm # bspwm-related configurations
     ../../home/dunst # Dunst notification daemon configuration

@@ -1,4 +1,10 @@
 {
+  pkgs,
+  config,
+  ...
+}:
+{
+
   services.polybar = {
     enable = true;
     script = ''
@@ -26,14 +32,14 @@
         foreground = "\${colors.text}";
         border-size = "2px";
         border-color = "\${colors.crust}";
-        font-0 = "Roboto:weight=semibold:size=12;2";
+        font-0 = "SF Pro Rounded:weight=semibold:size=12;2";
         font-1 = "Roboto Mono:weight=semibold:size=12;2";
-        font-2 = "Symbols Nerd Font:size=12;2";
+        font-2 = "Symbols Nerd Font:size=13;2";
         font-3 = "Font Awesome:size=12;2";
-        padding-left = "10px";
+        padding-left = "0px";
         padding-right = "10px";
-        module-margin = "6px";
-        modules-left = "bspwm spacer xwindow";
+        module-margin = "4px";
+        modules-left = "start spacer bspwm spacer xwindow";
         modules-center = "";
         modules-right = "pulseaudio spacer tray spacer date";
         scroll-up = "#bspwm.prev";
@@ -54,17 +60,17 @@
         fuzzy-match = true;
         occupied-scroll = true;
 
-        ws-icon-0 = "I;"; # Terminal
-        ws-icon-1 = "II;󰈹"; # Web
-        ws-icon-2 = "III;󰨞"; # Graphics (vector/illustration)
-        ws-icon-3 = "IV;󰜉"; # Email
-        ws-icon-4 = "V;󰝞"; # Code (Programming)
-        ws-icon-5 = "VI;󰂉"; # Multimedia (Audio/Video)
-        ws-icon-6 = "VII;󰍇"; # Communication (Slack, Teams)
-        ws-icon-7 = "VIII;󰥤"; # File Management
-        ws-icon-8 = "IX;󰌛"; # Settings (System tools)
-        ws-icon-9 = "X;󰻀"; # Miscellaneous (Games or General Use)
-        ws-icon-default = "󰇘"; # Default Workspace Icon
+        ws-icon-0 = "I;  ";
+        ws-icon-1 = "II; 󰈹 ";
+        ws-icon-2 = "III;  ";
+        ws-icon-3 = "IV;  ";
+        ws-icon-4 = "V;  ";
+        ws-icon-5 = "VI;  ";
+        ws-icon-6 = "VII;  ";
+        ws-icon-7 = "VIII;  ";
+        ws-icon-8 = "IX; 󱎓 ";
+        ws-icon-9 = "X;  ";
+        ws-icon-default = " 󰇘 ";
 
         format = "<label-state> <label-mode>";
         label-focused = " %icon% ";
@@ -85,7 +91,7 @@
         label-urgent-underline = "\${colors.red}";
 
         label-separator = "|";
-        label-separator-padding = 2; # Increase padding around separator
+        label-separator-padding = 0;
         label-separator-foreground = "\${colors.teal}";
       };
 
@@ -126,10 +132,10 @@
       "module/date" = {
         type = "internal/date";
         interval = 1;
-        date = "%Y-%m-%d";
-        time = "%l:%M%P";
+        date = "%a %b %e";
+        time = "%l:%M %p";
         time-alt = "%Y-%m-%d";
-        label = "%{T2}%time%%{T-} 󰥔";
+        label = "%date%  %time%  ";
         label-foreground = "\${colors.teal}";
       };
 
@@ -152,6 +158,16 @@
         ramp-volume-2 = "";
         click-right = "pavucontrol";
         # click-middle = ;
+      };
+
+      "module/start" = {
+        type = "custom/text";
+        content = "    "; # NixOS logo from Nerd Fonts (nf-linux-nixos)
+        content-font = 2; # Ensure this matches the Nerd Font index
+        content-foreground = "\${colors.base}"; # Use Nix blue color
+        content-background = "\${colors.blue}";
+        padding = 0; # Add some padding to make it look clean
+        click-left = "~/.config/polybar/scripts/launch_rofi.sh"; # Script to launch app launcher
       };
     };
   };
