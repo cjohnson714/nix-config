@@ -33,7 +33,7 @@ thunar --daemon &
 wmname LG3D &
 #nvidia-settings --load-config-only &
 xsetroot -cursor_name left_ptr &
-feh --no-fehbg --bg-fill ~/.config/bspwm/wallpaper.png
+feh --no-fehbg --bg-fill ~/.config/bspwm/wallpaper.jpg
 #easyeffects --gapplication-service &
 #/usr/bin/dunst &
 #dex -a -s /etc/xdg/autostart/:~/.config/autostart/  &
