@@ -26,16 +26,16 @@
         foreground = "\${colors.text}";
         border-size = "2px";
         border-color = "\${colors.crust}";
-        font-0 = "Roboto:weight=semibold:size=12;2"; # Semi-bold Roboto for regular text
-        font-1 = "Roboto Mono:weight=semibold:size=12;2"; # Roboto Mono for monospace text and numbers
-        font-2 = "Symbols Nerd Font:size=12;2"; # Nerd Font for icons
-        font-3 = "Font Awesome:size=12;2"; # Font Awesome for fallback icons
+        font-0 = "Roboto:weight=semibold:size=12;2";
+        font-1 = "Roboto Mono:weight=semibold:size=12;2";
+        font-2 = "Symbols Nerd Font:size=12;2";
+        font-3 = "Font Awesome:size=12;2";
         padding-left = "10px";
         padding-right = "10px";
         module-margin = "6px";
         modules-left = "bspwm spacer xwindow";
         modules-center = "";
-        modules-right = "pulseaudio spacer tray spacer date"; # Add tray module here
+        modules-right = "pulseaudio spacer tray spacer date";
         scroll-up = "#bspwm.prev";
         scroll-down = "#bspwm.next";
       };
