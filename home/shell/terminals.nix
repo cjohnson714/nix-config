@@ -18,6 +18,6 @@ in
       force_ltr = "no";
       window_margin_width = 5;
     };
-    themeFile = "gruvbox-dark-hard";
+    themeFile = "Catppuccin-Mocha";
   };
 }

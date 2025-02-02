@@ -7,9 +7,7 @@ in
 {
   imports = [
     ./zsh
-    ./nushell
     ./common.nix
-    ./starship.nix
     ./terminals.nix
   ];
 

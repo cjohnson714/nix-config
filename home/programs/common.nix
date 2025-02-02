@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  catppuccin-bat,
   ...
 }:
 {
@@ -56,14 +55,6 @@
       enable = true;
       config = {
         pager = "less -FR";
-        theme = "catppuccin-mocha";
-      };
-      themes = {
-        # https://raw.githubusercontent.com/catppuccin/bat/main/Catppuccin-mocha.tmTheme
-        catppuccin-mocha = {
-          src = catppuccin-bat;
-          file = "Catppuccin-mocha.tmTheme";
-        };
       };
     };
 
@@ -100,33 +91,41 @@
       tray = "never";
     };
 
-    xsettingsd.enable = true;
-    xsettingsd.settings = {
-      "Xft/Antialias" = true;
-      "Xft/Hinting" = true;
-      "Xft/HintStyle" = "hintfull";
-      "Xft/DPI" = 98304;
-      "Xft/lcdfilter" = "lcddefault";
-      "Xft/RGBA" = "rgb";
-      "EnableInputFeedbackSounds" = false;
-      "Net/EnableEventSounds" = true;
+    xsettingsd = {
+      enable = true;
+      settings = {
+        "Xft/Antialias" = true;
+        "Xft/Hinting" = true;
+        "Xft/HintStyle" = "hintfull";
+        "Xft/DPI" = 98304;
+        "Xft/lcdfilter" = "lcddefault";
+        "Xft/RGBA" = "rgb";
+        "EnableInputFeedbackSounds" = false;
+        "Net/EnableEventSounds" = true;
+      };
     };
-
     gnome-keyring.enable = true;
   };
 
   gtk = {
     enable = true;
-    theme.package = pkgs.gruvbox-gtk-theme.override {
-      colorVariants = [ "dark" ];
-      themeVariants = [ "purple" ];
+    font = {
+      name = "Sans";
+      size = 10;
     };
-    theme.name = "Gruvbox-Purple-Dark";
+  };
 
-    iconTheme.package = pkgs.gruvbox-plus-icons;
-    iconTheme.name = "Gruvbox-Plus-Dark";
-
-    font.name = "Sans";
-    font.size = 10;
+  catppuccin = {
+    flavor = "mocha";
+    accent = "mauve";
+    enable = true;
+    gtk.enable = true;
+    gtk.icon.enable = true;
+    cursors.enable = true;
+    btop.enable = true;
+    bat.enable = true;
+    fzf.enable = true;
+    kitty.enable = true;
+    mpv.enable = true;
   };
 }

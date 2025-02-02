@@ -37,7 +37,7 @@
         horizontal_padding = 8;
         text_icon_padding = 0;
         frame_width = 5;
-        frame_color = "#b8bb26";
+        frame_color = "#a6e3a1";
         gap_size = 10;
         separator_color = "auto";
         sort = true;
@@ -86,24 +86,24 @@
       };
 
       urgency_low = {
-        background = "#282828";
-        foreground = "#ebdbb2";
+        background = "#1e1e2e";
+        foreground = "#cdd6f4";
         timeout = 10;
         # default_icon = "/path/to/icon";
       };
 
       urgency_normal = {
-        background = "#282828";
-        foreground = "#ebdbb2";
+        background = "#1e1e2e";
+        foreground = "#cdd6f4";
         timeout = 10;
         override_pause_level = 30;
         # default_icon = "/path/to/icon";
       };
 
       urgency_critical = {
-        background = "#282828";
-        foreground = "#ebdbb2";
-        frame_color = "#fb4934";
+        background = "#1e1e2e";
+        foreground = "#cdd6f4";
+        frame_color = "#f38ba8";
         timeout = 0;
         override_pause_level = 60;
         # default_icon = "/path/to/icon";

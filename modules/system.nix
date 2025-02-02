@@ -87,25 +87,7 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  console.colors = [
-    # Custom console colors
-    "1d2021"
-    "3c3836"
-    "504945"
-    "665c54" # Darker shades
-    "bdae93"
-    "d5c4a1"
-    "ebdbb2"
-    "fbf1c7" # Lighter shades
-    "fb4934"
-    "fe8019"
-    "fabd2f"
-    "b8bb26" # Color palette
-    "8ec07c"
-    "83a598"
-    "d3869b"
-    "d65d0e" # Color palette
-  ];
+  catppuccin.tty.enable = true;
 
   services.printing.enable = true; # Enable printing (CUPS)
 
