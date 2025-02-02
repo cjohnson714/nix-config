@@ -5,7 +5,7 @@
 }:
 {
   # wallpaper, binary file
-  home.file.".config/bspwm/wallpaper.png".source = ../../wallpaper.png;
+  home.file.".config/bspwm/wallpaper.jpg".source = ../../wallpaper.jpg;
   home.file.".config/bspwm/bspwmrc" = {
     source = ./bspwmrc;
     executable = true;
