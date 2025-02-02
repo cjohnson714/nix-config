@@ -104,6 +104,8 @@
   fonts = {
     packages = with pkgs; [
       # Install custom fonts
+      font-awesome
+      vistafonts
       material-design-icons
       noto-fonts
       noto-fonts-cjk-sans
@@ -111,6 +113,10 @@
       nerd-fonts.fira-code
       nerd-fonts.jetbrains-mono
       nerd-fonts.caskaydia-cove
+      nerd-fonts.symbols-only
+      roboto
+      roboto-mono
+      inter
     ];
 
     enableDefaultPackages = false; # Disable default font packages

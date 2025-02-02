@@ -157,4 +157,4 @@ XF86AudioStop
   playerctl stop
 
 super + alt + {f,t}
-  {firefox-nightly,thunar}
+  {firefox,thunar}

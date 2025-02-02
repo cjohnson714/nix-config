@@ -13,6 +13,7 @@
     ../../home/bspwm # bspwm-related configurations
     ../../home/dunst # Dunst notification daemon configuration
     ../../home/rofi # Rofi launcher configuration
+    ../../home/polybar # Polybar config
   ];
 
   # ==========================================================================

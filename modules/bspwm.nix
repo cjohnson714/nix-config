@@ -62,6 +62,7 @@
     libinput
     lxappearance
     polkit_gnome
+    polybar
     rofi
     sxhkd
     sysstat
