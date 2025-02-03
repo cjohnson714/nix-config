@@ -14,7 +14,7 @@ fi
 
 # Generate the NixOS configuration files
 echo "Generating NixOS configuration..."
-sudo nixos-generate-config
+nixos-generate-config
 
 # Replace the hardware-configuration.nix file
 echo "Copying hardware configuration..."
@@ -23,7 +23,7 @@ cp /etc/nixos/hardware-configuration.nix hosts/nixos-vm/
 
 # Run the nixos-rebuild with flakes, custom substitutor, and experimental features enabled
 echo "Rebuilding NixOS system..."
-sudo nixos-rebuild switch \
+nixos-rebuild switch \
   --flake .#nixos-vm \
   --option experimental-features "nix-command flakes" \
   --option extra-substituters "https://chaotic-nyx.cachix.org" \
