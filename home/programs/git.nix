@@ -11,6 +11,5 @@
     extraConfig = {
       credential.helper = "libsecret";
     };
-    # ... Other options ...
   };
 }

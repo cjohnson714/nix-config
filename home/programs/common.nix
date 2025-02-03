@@ -11,37 +11,20 @@
     p7zip
 
     # utils
-    #ripgrep
-    #yq-go # https://github.com/mikefarah/yq
     htop
 
     # misc
     libnotify
-    #wineWowPackages.wayland
     xdg-utils
     graphviz
 
-    # productivity
-    #obsidian
-
     # IDE
-    #insomnia
     vscode
-
-    # cloud native
-    #docker-compose
-    #kubectl
 
     nodejs
     nodePackages.npm
     nodePackages.pnpm
     yarn
-    
-
-    # db related
-    #dbeaver-bin
-    #mycli
-    #pgcli
   ];
 
   programs = {
@@ -70,23 +53,9 @@
           AddKeysToAgent yes
       '';
     };
-    aria2.enable = true;
-
-    skim = {
-      enable = true;
-      enableZshIntegration = true;
-      defaultCommand = "rg --files --hidden";
-      changeDirWidgetOptions = [
-        "--preview 'exa --icons --git --color always -T -L 3 {} | head -200'"
-        "--exact"
-      ];
-    };
   };
 
   services = {
-    #syncthing.enable = true;
-
-    # auto mount usb drives
     udiskie = {
       enable = true;
       tray = "never";
@@ -105,6 +74,7 @@
         "Net/EnableEventSounds" = true;
       };
     };
+
     gnome-keyring.enable = true;
   };
 
@@ -129,5 +99,6 @@
     fzf.enable = true;
     kitty.enable = true;
     mpv.enable = true;
+    zsh-syntax-highlighting.enable = true;
   };
 }
