@@ -39,7 +39,7 @@ This guide assumes that you have already installed NixOS and manually handled di
 ### 1. 📥 Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/nix-config.git
+nix-shell -p git --run "git clone https://github.com/cjohnson714/nix-config"
 cd nix-config
 ```
 
