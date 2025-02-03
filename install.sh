@@ -2,31 +2,52 @@
 
 # Ensure the script is run as root
 if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run as root" 
-   exit 1
+  echo "This script must be run as root"
+  exit 1
 fi
 
 # Ensure the script is run from within the nix-config directory (check for flake.nix file)
 if [[ ! -f "flake.nix" ]]; then
-   echo "Error: This script must be run from within the nix-config directory."
-   exit 1
+  echo "Error: This script must be run from within the nix-config directory."
+  exit 1
 fi
 
 # Accept an optional argument for the system name, default to "nixos-vm" if not provided
 SYSTEM_NAME="${1:-nixos-vm}"
 
 echo "Generating NixOS configuration..."
-nixos-generate-config
 
-echo "Copying hardware configuration..."
-rm hosts/${SYSTEM_NAME}/hardware-configuration.nix
-cp /etc/nixos/hardware-configuration.nix hosts/${SYSTEM_NAME}/
+# Create a temporary directory
+TMP_DIR=$(mktemp -d)
 
-# Adjust the ownership to the current user after copying
-echo "Changing ownership of hardware-configuration.nix to the current user..."
-chown $(whoami):$(whoami) hosts/${SYSTEM_NAME}/hardware-configuration.nix
+# Generate the config into the temporary directory
+nixos-generate-config --dir "$TMP_DIR"
+
+# Copy ONLY the hardware-configuration.nix file
+cp "$TMP_DIR/hardware-configuration.nix" hosts/${SYSTEM_NAME}/
+
+# Adjust the ownership to the original user after copying
+echo "Changing ownership of hardware-configuration.nix to the original user..."
+
+# Get the original user's username using logname
+ORIGINAL_USER=$(logname)
+
+# Get the UID and GID of the original user
+ORIGINAL_UID=$(id -u "$ORIGINAL_USER")
+ORIGINAL_GID=$(id -g "$ORIGINAL_USER")
+
+# Check if the IDs are valid
+if [[ -n "$ORIGINAL_UID" && "$ORIGINAL_UID" != ":" && -n "$ORIGINAL_GID" && "$ORIGINAL_GID" != ":" ]]; then
+  chown "$ORIGINAL_UID:$ORIGINAL_GID" hosts/${SYSTEM_NAME}/hardware-configuration.nix
+else
+  echo "Warning: Could not determine original user/group IDs. Skipping ownership change."
+fi
+
+# Remove the temporary directory and its contents
+rm -rf "$TMP_DIR"
 
 echo "Rebuilding NixOS system..."
+
 nixos-rebuild switch \
   --flake .#${SYSTEM_NAME} \
   --option experimental-features "nix-command flakes" \
