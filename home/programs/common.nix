@@ -120,6 +120,7 @@
     flavor = "mocha";
     accent = "mauve";
     enable = true;
+    cache.enable = true;
     gtk.enable = true;
     gtk.icon.enable = true;
     cursors.enable = true;
