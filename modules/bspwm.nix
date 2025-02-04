@@ -78,7 +78,6 @@
     wmname
     xbindkeys
     xclip
-    xdg-desktop-portal-gtk
     xdg-user-dirs
     xdg-utils
     xorg.xbacklight
@@ -113,8 +112,9 @@
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal
     ];
     config = {
       common = {
