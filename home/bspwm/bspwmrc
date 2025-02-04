@@ -1,5 +1,11 @@
 #! /bin/sh
 
+export XDG_CURRENT_DESKTOP="bspwm"
+export DESKTOP_SESSION="bspwm"
+export XDG_SESSION_DESKTOP="bspwm"
+
+export XDG_DATA_DIRS="/run/current-system/sw/share:/usr/share"
+
 pgrep -x sxhkd > /dev/null || sxhkd &
 
 bspc monitor -d I II III IV V VI VII VIII IX X
@@ -27,6 +33,7 @@ bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
 #/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+/run/current-system/sw/bin/lxqt-policykit-agent &
 #udiskie &
 thunar --daemon &
 #~/.tumblerd.sh &

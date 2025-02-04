@@ -74,8 +74,6 @@
         "Net/EnableEventSounds" = true;
       };
     };
-
-    gnome-keyring.enable = true;
   };
 
   gtk = {

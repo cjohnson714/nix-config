@@ -11,39 +11,47 @@
 
   environment.pathsToLink = [ "/libexec" ]; # Link /libexec from derivations
 
-  services.displayManager = {
-    defaultSession = "none+bspwm"; # Start bspwm directly
-    ly = {
-      # Configure LY display manager
-      enable = true;
-      settings = {
-        animation = "matrix"; # LY animation style
+  services = {
+    displayManager = {
+      defaultSession = "none+bspwm"; # Start bspwm directly
+      ly = {
+        # Configure LY display manager
+        enable = true;
+        settings = {
+          animation = "matrix"; # LY animation style
+        };
       };
     };
-  };
 
-  services.xserver = {
-    enable = true;
+    xserver = {
+      enable = true;
 
-    desktopManager = {
-      xterm.enable = false; # Disable default xterm
-      runXdgAutostartIfNone = true; # Autostart XDG apps (no DE)
+      desktopManager = {
+        xterm.enable = false; # Disable default xterm
+        runXdgAutostartIfNone = true; # Autostart XDG apps (no DE)
+      };
+
+      windowManager.bspwm = {
+        enable = true; # Enable bspwm
+      };
+
+      xkb = {
+        layout = "us"; # Keyboard layout
+        variant = ""; # Keyboard variant.
+      };
+
+      updateDbusEnvironment = true; # Ensure D-Bus environment variables are updated for X server sessions, allowing applications to communicate over D-Bus.
     };
 
-    displayManager = {
-      # Disable other display managers
-      lightdm.enable = false;
-      gdm.enable = false;
-    };
+    xrdp.defaultWindowManager = "bspwm";
 
-    windowManager.bspwm = {
-      enable = true; # Enable bspwm
-    };
-
-    xkb = {
-      layout = "us"; # Kayboard layout
-      variant = ""; # Keyboard variant
-    };
+    # System services
+    accounts-daemon.enable = true;
+    gvfs.enable = true;
+    libinput.enable = true;
+    tumbler.enable = true;
+    udisks2.enable = true;
+    upower.enable = true;
   };
 
   # ==========================================================================
@@ -61,7 +69,7 @@
     imagemagick
     libinput
     lxappearance
-    polkit_gnome
+    lxqt.lxqt-policykit
     polybar
     rofi
     sxhkd
@@ -70,7 +78,9 @@
     wmname
     xbindkeys
     xclip
+    xdg-desktop-portal-gtk
     xdg-user-dirs
+    xdg-utils
     xorg.xbacklight
     xorg.xdpyinfo
     xorg.xrandr
@@ -81,29 +91,37 @@
   #                               Thunar File Manager
   # ==========================================================================
 
-  programs.thunar = {
-    # Thunar configuration
-    enable = true;
-    plugins = with pkgs.xfce; [
-      # Thunar plugins
-      thunar-archive-plugin
-      thunar-volman
-    ];
+  programs = {
+    thunar = {
+      # Thunar configuration
+      enable = true;
+      plugins = with pkgs.xfce; [
+        # Thunar plugins
+        thunar-archive-plugin
+        thunar-volman
+        thunar-media-tags-plugin
+      ];
+    };
+
+    xfconf.enable = true; # Enable Xfconf for persistent Thunar settings
   };
 
-  programs.xfconf.enable = true; # Enable Xfconf for persistent Thunar settings
-
   # ==========================================================================
-  #                               System Services
+  #                               XDG Portal
   # ==========================================================================
 
-  services = {
-    # System services
-    accounts-daemon.enable = true;
-    gvfs.enable = true;
-    libinput.enable = true;
-    tumbler.enable = true;
-    udisks2.enable = true;
-    xserver.updateDbusEnvironment = true; # Update X server's D-Bus environment
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
+    config = {
+      common = {
+        default = [
+          "gtk"
+        ];
+      };
+    };
   };
 }
