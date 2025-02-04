@@ -21,6 +21,9 @@ bspc config presel_feedback_color "#fab387"
 bspc config focus_follows_pointer true
 bspc config pointer_follows_focus false
 
+bspc config remove_disabled_monitors true
+bspc config remove_unplugged_monitors true
+
 bspc config split_ratio          0.50
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
@@ -36,19 +39,22 @@ bspc rule -a Spotify desktop='^6' follow=on
 bspc rule -a ayugram-desktop desktop='^7' follow=on
 bspc rule -a telegram-desktop desktop='^7' follow=on
 bspc rule -a Discord desktop='^8' follow=on
+bspc rule -a Lutris desktop='^9' follow=on
+bspc rule -a Steam desktop='^9' follow=on
 
-#/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-/run/current-system/sw/bin/lxqt-policykit-agent &
-#udiskie &
-thunar --daemon &
-#~/.tumblerd.sh &
-wmname LG3D &
-#nvidia-settings --load-config-only &
-xsetroot -cursor_name left_ptr &
 feh --no-fehbg --bg-fill ~/.config/bspwm/wallpaper.jpg
-#easyeffects --gapplication-service &
+/run/current-system/sw/bin/lxqt-policykit-agent &
+systemctl --user restart polybar
+thunar --daemon &
+wmname LG3D &
+xsetroot -cursor_name left_ptr &
 #/usr/bin/dunst &
+#/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 #dex -a -s /etc/xdg/autostart/:~/.config/autostart/  &
+#easyeffects --gapplication-service &
+#nvidia-settings --load-config-only &
+#thunar --daemon &
+#udiskie &
 #xinput --set-prop "12" "libinput Accel Profile Enabled" 0 1 0 &
 #xsettingsd &
-systemctl --user restart polybar
+#~/.tumblerd.sh &
