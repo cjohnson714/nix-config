@@ -1,22 +1,13 @@
 { pkgs, ... }:
 {
-
-  # bspwm Configuration Module
-  # Defines shared services, programs, and settings for a bspwm setup.
-  # Window manager configuration is handled separately.
-
   # ==========================================================================
   #                               Display and Window Management
   # ==========================================================================
-
-  environment.pathsToLink = [ "/libexec" ]; # Link /libexec from derivations
-
   services = {
     displayManager = {
       defaultSession = "none+bspwm"; # Start bspwm directly
       ly = {
-        # Configure LY display manager
-        enable = true;
+        enable = true; # Enable LY display manager
         settings = {
           animation = "matrix"; # LY animation style
         };
@@ -37,29 +28,30 @@
 
       xkb = {
         layout = "us"; # Keyboard layout
-        variant = ""; # Keyboard variant.
+        variant = ""; # Keyboard variant
       };
 
-      updateDbusEnvironment = true; # Ensure D-Bus environment variables are updated for X server sessions, allowing applications to communicate over D-Bus.
+      updateDbusEnvironment = true; # Ensure D-Bus environment variables are updated for X server sessions
     };
 
-    xrdp.defaultWindowManager = "bspwm";
+    xrdp.defaultWindowManager = "bspwm"; # Set default window manager for xrdp
 
-    # System services
-    accounts-daemon.enable = true;
-    gvfs.enable = true;
-    libinput.enable = true;
-    tumbler.enable = true;
-    udisks2.enable = true;
-    upower.enable = true;
+    # ==========================================================================
+    #                               System Services
+    # ==========================================================================
+
+    accounts-daemon.enable = true; # Manage user accounts
+    gvfs.enable = true; # Virtual filesystem for GIO
+    libinput.enable = true; # Input device management
+    tumbler.enable = true; # Thumbnail generation
+    udisks2.enable = true; # Disk management service
+    upower.enable = true; # Power management
   };
 
   # ==========================================================================
   #                               System Packages
   # ==========================================================================
-
   environment.systemPackages = with pkgs; [
-    # bspwm and related tools
     acpi
     arandr
     dex
@@ -89,13 +81,10 @@
   # ==========================================================================
   #                               Thunar File Manager
   # ==========================================================================
-
   programs = {
     thunar = {
-      # Thunar configuration
-      enable = true;
+      enable = true; # Enable Thunar
       plugins = with pkgs.xfce; [
-        # Thunar plugins
         thunar-archive-plugin
         thunar-volman
         thunar-media-tags-plugin
@@ -110,8 +99,8 @@
   # ==========================================================================
 
   xdg.portal = {
-    enable = true;
-    xdgOpenUsePortal = true;
+    enable = true; # Enable XDG portal
+    xdgOpenUsePortal = true; # Use XDG portal for opening files
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
       xdg-desktop-portal
@@ -124,4 +113,9 @@
       };
     };
   };
+
+  # ==========================================================================
+  #                               Environment Paths
+  # ==========================================================================
+  environment.pathsToLink = [ "/libexec" ]; # Link /libexec from derivations
 }
