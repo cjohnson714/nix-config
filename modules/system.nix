@@ -211,5 +211,6 @@
   security = {
     polkit.enable = true;
     pam.services.ly.enableGnomeKeyring = true; # LY integration
+    rtkit.enable = true;
   };
 }

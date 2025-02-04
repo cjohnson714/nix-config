@@ -61,8 +61,8 @@
     gnome-themes-extra
     imagemagick
     libinput
-    lxappearance
     lxqt.lxqt-policykit
+    nwg-look
     polybar
     rofi
     sxhkd
