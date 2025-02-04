@@ -27,10 +27,15 @@ bspc config gapless_monocle      true
 bspc config pointer_motion_interval 7ms
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on
-bspc rule -a Chromium desktop='^2'
-bspc rule -a mplayer2 state=floating
-bspc rule -a Kupfer.py focus=on
-bspc rule -a Screenkey manage=off
+bspc rule -a Navigator desktop='^2' follow=on
+bspc rule -a kitty desktop='^1' follow=on
+bspc rule -a Code desktop='^4' follow=on
+bspc rule -a Thunar desktop='^3' follow=on
+bspc rule -a mpv desktop='^5' follow=on
+bspc rule -a Spotify desktop='^6' follow=on
+bspc rule -a ayugram-desktop desktop='^7' follow=on
+bspc rule -a telegram-desktop desktop='^7' follow=on
+bspc rule -a Discord desktop='^8' follow=on
 
 #/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 /run/current-system/sw/bin/lxqt-policykit-agent &
