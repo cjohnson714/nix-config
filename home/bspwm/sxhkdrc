@@ -10,6 +10,10 @@ super + Return
 super + @space
 	rofi -show drun
 
+# rofi greenclip
+super + shift + @space
+	rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
@@ -37,6 +41,14 @@ super + y
 # swap the current node and the biggest window
 super + g
 	bspc node -s biggest.window
+
+# move window to workspace and follow
+super + shift + {1-9,0}
+	bspc node -d '^{1-9,10}' --follow
+
+# change to workspace
+super + {1-9,0}
+	bspc desktop -f '^{1-9,10}'
 
 #
 # state/flags
@@ -79,10 +91,6 @@ super + {o,i}
 	bspc wm -h off; \
 	bspc node {older,newer} -f; \
 	bspc wm -h on
-
-# focus or send to the given desktop
-super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
 
 #
 # preselect
