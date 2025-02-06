@@ -7,11 +7,13 @@
   home.packages = with pkgs; [
     (pkgs.callPackage ./scripts/player-mpris-tail.nix { })
   ];
-  home.file.".config/polybar/scripts" = {
-    source = ./scripts;
-    recursive = true;
-    executable = true;
-  };
+  /*
+    home.file.".config/polybar/scripts" = {
+      source = ./scripts;
+      recursive = true;
+      executable = true;
+    };
+  */
   services.polybar = {
     enable = true;
     script = ''
