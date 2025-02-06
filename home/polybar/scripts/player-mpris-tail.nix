@@ -14,7 +14,7 @@ buildPythonPackage rec {
     dbus-python
     pygobject3
   ];
-  buildInputs = [ pkgs.wrapGAppsNoGuiHook ]; # Add wrapGAppsNoGuiHook here
+  buildInputs = [ pkgs.wrapGAppsNoGuiHook ];
 
   src = fetchurl {
     url = "https://raw.githubusercontent.com/polybar/polybar-scripts/a588bfc1191fe3f25da6b1a789eb017a505ac5bc/polybar-scripts/player-mpris-tail/player-mpris-tail.py";
@@ -47,6 +47,6 @@ buildPythonPackage rec {
     description = "Polybar module to tail player MPRIS status";
     homepage = "https://github.com/polybar/polybar-scripts";
     license = licenses.mit;
-    maintainers = [ maintainers.yourUsername ]; # Replace with your actual username.
+    maintainers = [ maintainers.cjohnson714 ];
   };
 }
