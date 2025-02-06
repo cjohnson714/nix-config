@@ -4,7 +4,9 @@
   ...
 }:
 {
-
+  home.packages = with pkgs; [
+    (pkgs.callPackage ./scripts/player-mpris-tail.nix { })
+  ];
   home.file.".config/polybar/scripts" = {
     source = ./scripts;
     recursive = true;
@@ -37,12 +39,16 @@
         font-1 = "Roboto Mono:weight=semibold:size=12;2";
         font-2 = "Symbols Nerd Font:size=13;2";
         font-3 = "Font Awesome:size=12;2";
+        font-4 = "Noto Sans CJK JP:weight=semibold:size=12;2";
+        font-5 = "Noto Sans CJK KR:weight=semibold:size=12;2";
+        font-6 = "Noto Sans CJK SC:weight=semibold:size=12;2";
+        font-7 = "Noto Sans CJK TC:weight=semibold:size=12;2";
         padding-left = "0px";
         padding-right = "10px";
         module-margin = "4px";
         modules-left = "start bspwm xwindow";
         modules-center = "";
-        modules-right = "pulseaudio tray date";
+        modules-right = "player-mpris-tail pulseaudio tray date";
         scroll-up = "#bspwm.prev";
         scroll-down = "#bspwm.next";
       };
@@ -174,11 +180,8 @@
       "module/player-mpris-tail" = {
         type = "custom/script";
         # The Correct Way to Call the Script:
-        exec = "${pkgs.python39}/bin/python3 ~/.config/polybar/scripts/player-mpris-tail.py -f '{icon} {artist} - {title}'";
+        exec = "/etc/profiles/per-user/integrus/bin/player-mpris-tail.py --icon-playing '' --icon-paused '' -f '{icon} {:artist:t18:{artist}:}{:artist: - :}{:t20:{title}:}  %{A1:/etc/profiles/per-user/integrus/bin/player-mpris-tail.py previous:}  %{A} %{A1:/etc/profiles/per-user/integrus/bin/player-mpris-tail.py play-pause:} {icon-reversed} %{A} %{A1:/etc/profiles/per-user/integrus/bin/player-mpris-tail.py next:}  %{A}'";
         tail = true; # Important for real-time updates
-        click-left = "${pkgs.python39}/bin/python3 ~/.config/polybar/scripts/player-mpris-tail.py previous"; # Fixed click commands
-        click-right = "${pkgs.python39}/bin/python3 ~/.config/polybar/scripts/player-mpris-tail.py next"; # Fixed click commands
-        click-middle = "${pkgs.python39}/bin/python3 ~/.config/polybar/scripts/player-mpris-tail.py play-pause"; # Fixed click commands
       };
     };
   };
