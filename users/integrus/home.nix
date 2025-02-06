@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
 
   # Integrus Home Manager Configuration
@@ -9,7 +9,8 @@
 
     ../../home/programs # Shared program configurations
     ../../home/shell # Shell configurations
-    ../../home/fonts
+    ../../home/fonts # Font configurations
+    ../../home/neovim # Neovim configuration
 
     ../../home/bspwm # bspwm-related configurations
     ../../home/dunst # Dunst notification daemon configuration

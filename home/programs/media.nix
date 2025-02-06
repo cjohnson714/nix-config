@@ -1,13 +1,9 @@
 {
   pkgs,
-  config,
   ...
 }:
 # media - control and enjoy audio/video
 {
-  # imports = [
-  # ];
-
   home.packages = with pkgs; [
     # audio control
     pavucontrol
@@ -30,8 +26,6 @@
         pkgs.mpvScripts.autosubsync-mpv
       ];
     };
-
-    obs-studio.enable = true;
   };
 
   services = {
