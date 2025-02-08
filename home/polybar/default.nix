@@ -1,11 +1,19 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }:
 {
+  systemd.user.services.polybar = {
+    Install.WantedBy = [ "graphical-session.target" ];
+    Service.Environment = lib.mkForce ""; # to override the package's default configuration
+    Service.PassEnvironment = "PATH"; # so that the entire PATH is passed to this service (alternatively, you can import the entire PATH to systemd at startup, which I'm not sure is recommended
+  };
+
   home.packages = with pkgs; [
     (pkgs.callPackage ./scripts/player-mpris-tail.nix { })
+    jgmenu
   ];
   /*
     home.file.".config/polybar/scripts" = {
@@ -16,6 +24,8 @@
   */
   services.polybar = {
     enable = true;
+    package = pkgs.polybarFull;
+
     script = ''
       # Terminate already running bar instances
       killall -q polybar
@@ -171,20 +181,20 @@
 
       "module/start" = {
         type = "custom/text";
-        content = "    "; # NixOS logo from Nerd Fonts (nf-linux-nixos)
-        content-font = 2; # Ensure this matches the Nerd Font index
-        content-foreground = "\${colors.base}"; # Use Nix blue color
+        content = "    ";
+        content-font = 2;
+        content-foreground = "\${colors.base}";
         content-background = "\${colors.blue}";
-        padding = 0; # Add some padding to make it look clean
-        click-left = "~/.config/polybar/scripts/launch_rofi.sh"; # Script to launch app launcher
+        padding = 0;
+        click.left = "${pkgs.jgmenu}/bin/jgmenu_run >/dev/null 2>&1 &";
       };
 
       "module/player-mpris-tail" = {
         type = "custom/script";
-        # The Correct Way to Call the Script:
-        exec = "/etc/profiles/per-user/integrus/bin/player-mpris-tail.py --icon-playing '' --icon-paused '' -f '{icon} {:artist:t18:{artist}:}{:artist: - :}{:t20:{title}:}  %{A1:/etc/profiles/per-user/integrus/bin/player-mpris-tail.py previous:}  %{A} %{A1:/etc/profiles/per-user/integrus/bin/player-mpris-tail.py play-pause:} {icon-reversed} %{A} %{A1:/etc/profiles/per-user/integrus/bin/player-mpris-tail.py next:}  %{A}'";
-        tail = true; # Important for real-time updates
+        exec = "/etc/profiles/per-user/$USER/bin/player-mpris-tail.py --icon-playing '' --icon-paused '' -f '{icon} {:artist:t18:{artist}:}{:artist: - :}{:t20:{title}:}  %{A1:/etc/profiles/per-user/integrus/bin/player-mpris-tail.py previous:}  %{A} %{A1:/etc/profiles/per-user/integrus/bin/player-mpris-tail.py play-pause:} {icon-reversed} %{A} %{A1:/etc/profiles/per-user/integrus/bin/player-mpris-tail.py next:}  %{A}'";
+        tail = true;
       };
+
     };
   };
 }

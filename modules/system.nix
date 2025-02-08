@@ -177,6 +177,7 @@
     git
     lm_sensors
     libsecret
+    ncdu
     nixfmt-rfc-style
     nnn
     scrot

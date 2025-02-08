@@ -1,10 +1,10 @@
 #! /bin/sh
 
-export XDG_CURRENT_DESKTOP="bspwm"
-export DESKTOP_SESSION="bspwm"
-export XDG_SESSION_DESKTOP="bspwm"
+#export XDG_CURRENT_DESKTOP="bspwm"
+#export DESKTOP_SESSION="bspwm"
+#export XDG_SESSION_DESKTOP="bspwm"
 
-export XDG_DATA_DIRS="/run/current-system/sw/share:/usr/share"
+#export XDG_DATA_DIRS="/run/current-system/sw/share:/usr/share"
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 
@@ -46,8 +46,9 @@ bspc rule -a Lutris desktop='^9' follow=on
 bspc rule -a Steam desktop='^9' follow=on
 
 feh --no-fehbg --bg-fill ~/.config/bspwm/wallpaper.jpg
+#polybar bottom -c ~/.config/polybar/config.ini &
 /run/current-system/sw/bin/lxqt-policykit-agent &
-systemctl --user restart polybar
+#systemctl --user restart polybar
 thunar --daemon &
 wmname LG3D &
 xsetroot -cursor_name left_ptr &
