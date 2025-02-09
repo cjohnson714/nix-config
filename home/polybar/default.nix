@@ -4,6 +4,9 @@
   lib,
   ...
 }:
+let
+  player-mpris-tail = pkgs.callPackage ./scripts/player-mpris-tail.nix { };
+in
 {
   systemd.user.services.polybar = {
     Install.WantedBy = [ "graphical-session.target" ];
@@ -12,7 +15,7 @@
   };
 
   home.packages = with pkgs; [
-    (pkgs.callPackage ./scripts/player-mpris-tail.nix { })
+    player-mpris-tail
     jgmenu
   ];
   /*
@@ -191,7 +194,7 @@
 
       "module/player-mpris-tail" = {
         type = "custom/script";
-        exec = "/etc/profiles/per-user/$USER/bin/player-mpris-tail.py --icon-playing '' --icon-paused '' -f '{icon} {:artist:t18:{artist}:}{:artist: - :}{:t20:{title}:}  %{A1:/etc/profiles/per-user/integrus/bin/player-mpris-tail.py previous:}  %{A} %{A1:/etc/profiles/per-user/integrus/bin/player-mpris-tail.py play-pause:} {icon-reversed} %{A} %{A1:/etc/profiles/per-user/integrus/bin/player-mpris-tail.py next:}  %{A}'";
+        exec = "${player-mpris-tail}/bin/player-mpris-tail --icon-playing '' --icon-paused '' -f '{icon} {:artist:t18:{artist}:}{:artist: - :}{:t20:{title}:}  %{A1:${player-mpris-tail}/bin/player-mpris-tail previous:}  %{A} %{A1:${player-mpris-tail}/bin/player-mpris-tail play-pause:} {icon-reversed} %{A} %{A1:${player-mpris-tail}/bin/player-mpris-tail next:}  %{A}'";
         tail = true;
       };
 
