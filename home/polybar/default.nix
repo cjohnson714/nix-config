@@ -194,7 +194,10 @@ in
 
       "module/player-mpris-tail" = {
         type = "custom/script";
-        exec = "${player-mpris-tail}/bin/player-mpris-tail --icon-playing '' --icon-paused '' -f '{icon} {:artist:t18:{artist}:}{:artist: - :}{:t20:{title}:}  %{A1:${player-mpris-tail}/bin/player-mpris-tail previous:}  %{A} %{A1:${player-mpris-tail}/bin/player-mpris-tail play-pause:} {icon-reversed} %{A} %{A1:${player-mpris-tail}/bin/player-mpris-tail next:}  %{A}'";
+        exec = "${player-mpris-tail}/bin/player-mpris-tail --icon-playing '' --icon-paused '' -f '{icon} {:artist:t18:{artist}:}{:artist: - :}{:t20:{title}:}'";
+        click.left = "${player-mpris-tail}/bin/player-mpris-tail previous &";
+        click.middle = "${player-mpris-tail}/bin/player-mpris-tail play-pause &";
+        click.right = "${player-mpris-tail}/bin/player-mpris-tail next &";
         tail = true;
       };
 
