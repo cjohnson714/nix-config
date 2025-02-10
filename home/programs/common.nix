@@ -79,7 +79,7 @@
   gtk = {
     enable = true;
     font = {
-      name = "Sans";
+      name = "SF Pro";
       size = 10;
     };
   };
