@@ -125,6 +125,9 @@
       roboto
       roboto-mono
       inter
+      maple-mono.TTF
+      maple-mono.NF
+      maple-mono.NFCN
     ];
 
     enableDefaultPackages = false; # Disable default font packages
@@ -140,12 +143,38 @@
         "Noto Color Emoji"
       ];
       monospace = [
-        "JetBrainsMono Nerd Font"
+        "Caskaydia Cove Nerd Font"
         "Noto Color Emoji"
       ];
       emoji = [ "Noto Color Emoji" ];
     };
+
+    fontconfig = {
+      enable = true;
+      hinting = {
+        enable = true;
+        style = "slight";
+      };
+      subpixel = {
+        rgba = "rgb";
+        lcdfilter = "default";
+      };
+      antialias = true;
+    };
+
   };
+
+  environment.variables = {
+    FREETYPE_PROPERTIES = "cff:no-stem-darkening=0 autofitter:no-stem-darkening=0";
+    GDK_USE_XFT = "1";
+    QT_XFT = "true";
+    XFT_SUBPIXEL = "rgb";
+  };
+  environment.sessionVariables = {
+    MOZ_ENABLE_WAYLAND = "1";
+    MOZ_DISABLE_CONTENT_SANDBOX = "1";
+  };
+  services.xserver.dpi = 96;
 
   # ==========================================================================
   #                           Programs and Services

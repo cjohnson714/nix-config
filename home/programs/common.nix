@@ -66,7 +66,7 @@
       settings = {
         "Xft/Antialias" = true;
         "Xft/Hinting" = true;
-        "Xft/HintStyle" = "hintfull";
+        "Xft/HintStyle" = "hintslight";
         "Xft/DPI" = 98304;
         "Xft/lcdfilter" = "lcddefault";
         "Xft/RGBA" = "rgb";
