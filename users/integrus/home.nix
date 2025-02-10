@@ -1,29 +1,36 @@
 { pkgs, inputs, ... }:
-{
 
-  # Integrus Home Manager Configuration
-  # This file imports and configures all home-manager modules.
+{
+  # ==========================================================================
+  #                     Home Manager Main Configuration
+  # ==========================================================================
+  # Entry point for user-specific environment and package configurations.
+  # Imports modular settings from component files in ../../home directory.
 
   imports = [
-    ../../home/core.nix # Core home-manager settings
+    # Core system configuration (environment variables, base packages)
+    ../../home/core.nix
 
-    ../../home/programs # Shared program configurations
-    ../../home/shell # Shell configurations
-    ../../home/fonts # Font configurations
-    ../../home/neovim # Neovim configuration
+    # Application configurations (shared across desktop environments)
+    ../../home/programs # General purpose applications
+    ../../home/shell # Shell configurations (zsh, bash)
+    ../../home/fonts # Font installations and settings
+    ../../home/neovim # Neovim editor configuration
 
-    ../../home/bspwm # bspwm-related configurations
-    ../../home/dunst # Dunst notification daemon configuration
-    ../../home/rofi # Rofi launcher configuration
-    ../../home/polybar # Polybar config
+    # Desktop environment components
+    ../../home/bspwm # Window manager configuration
+    ../../home/dunst # Notification daemon
+    ../../home/rofi # Application launcher
+    ../../home/polybar # Status bar configuration
   ];
 
   # ==========================================================================
-  #                               Git Configuration
+  #                              Git Configuration
   # ==========================================================================
+  # Sets global Git credentials and basic version control settings.
 
   programs.git = {
-    userName = "cjohnson714";
-    userEmail = "cjohnson714@gmail.com";
+    userName = "cjohnson714"; # Global Git username
+    userEmail = "cjohnson714@gmail.com"; # Associated email for commits
   };
 }
