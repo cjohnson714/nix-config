@@ -128,6 +128,7 @@
       maple-mono.TTF
       maple-mono.NF
       maple-mono.NFCN
+      apple-fonts
     ];
 
     enableDefaultPackages = false; # Disable default font packages
@@ -135,14 +136,17 @@
     fontconfig.defaultFonts = {
       # Set default font families
       serif = [
+        "New York"
         "Noto Serif"
         "Noto Color Emoji"
       ];
       sansSerif = [
+        "SF Pro"
         "Noto Sans"
         "Noto Color Emoji"
       ];
       monospace = [
+        "Maple Mono NF CN"
         "Caskaydia Cove Nerd Font"
         "Noto Color Emoji"
       ];
