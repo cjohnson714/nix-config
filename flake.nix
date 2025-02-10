@@ -26,19 +26,24 @@
         nixos-vm =
           let
             username = "integrus";
+            system = "x86_64-linux";
             specialArgs = inputs // {
-              inherit username;
+              inherit username system;
             };
           in
           nixpkgs.lib.nixosSystem {
-            inherit specialArgs;
-            system = "x86_64-linux";
-
+            inherit system specialArgs;
             modules = [
               ./hosts/nixos-vm
               ./users/${username}/nixos.nix
               chaotic.nixosModules.default
               catppuccin.nixosModules.catppuccin
+
+              {
+                nixpkgs.overlays = [
+                  (import ./overlays/custom-packages.nix)
+                ];
+              }
 
               home-manager.nixosModules.home-manager
               {

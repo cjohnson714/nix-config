@@ -182,6 +182,7 @@
     nnn
     scrot
     sysstat
+    tree
     vim
     wget
     xfce.thunar

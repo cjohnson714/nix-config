@@ -4,9 +4,6 @@
   lib,
   ...
 }:
-let
-  player-mpris-tail = pkgs.callPackage ./scripts/player-mpris-tail.nix { };
-in
 {
   systemd.user.services.polybar = {
     Install.WantedBy = [ "graphical-session.target" ];
@@ -194,10 +191,10 @@ in
 
       "module/player-mpris-tail" = {
         type = "custom/script";
-        exec = "${player-mpris-tail}/bin/player-mpris-tail --icon-playing '' --icon-paused '' -f '{icon} {:artist:t18:{artist}:}{:artist: - :}{:t20:{title}:}'";
-        click.left = "${player-mpris-tail}/bin/player-mpris-tail previous &";
-        click.middle = "${player-mpris-tail}/bin/player-mpris-tail play-pause &";
-        click.right = "${player-mpris-tail}/bin/player-mpris-tail next &";
+        exec = "${pkgs.player-mpris-tail}/bin/player-mpris-tail --icon-playing '' --icon-paused '' -f '{icon} {:artist:t18:{artist}:}{:artist: - :}{:t20:{title}:}'";
+        click.left = "${pkgs.player-mpris-tail}/bin/player-mpris-tail previous &";
+        click.middle = "${pkgs.player-mpris-tail}/bin/player-mpris-tail play-pause &";
+        click.right = "${pkgs.player-mpris-tail}/bin/player-mpris-tail next &";
         tail = true;
       };
 
