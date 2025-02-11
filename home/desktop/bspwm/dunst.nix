@@ -10,8 +10,8 @@
       global = {
         monitor = 0;
         follow = "none";
-        width = "(0, 500)"; # Corrected
-        height = "(0, 500)"; # Corrected
+        width = "(0, 500)";
+        height = "(0, 500)";
         origin = "top-right";
         offset = "(10, 10)";
         scale = 0;

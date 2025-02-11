@@ -5,10 +5,12 @@
   ...
 }:
 {
+  # Make sure any programs started by polybar have the correct
+  # environment variables set.
   systemd.user.services.polybar = {
     Install.WantedBy = [ "graphical-session.target" ];
-    Service.Environment = lib.mkForce ""; # to override the package's default configuration
-    Service.PassEnvironment = "PATH"; # so that the entire PATH is passed to this service (alternatively, you can import the entire PATH to systemd at startup, which I'm not sure is recommended
+    Service.Environment = lib.mkForce "";
+    Service.PassEnvironment = "PATH";
   };
 
   home.packages = with pkgs; [
@@ -160,8 +162,8 @@
 
       "module/tray" = {
         type = "internal/tray";
-        position = "right"; # Position tray on the bottom right
-        icon-size = 16; # Set the icon size of the tray
+        position = "right";
+        icon-size = 16;
       };
 
       "module/pulseaudio" = {
@@ -176,7 +178,6 @@
         ramp-volume-1 = "";
         ramp-volume-2 = "";
         click-right = "pavucontrol";
-        # click-middle = ;
       };
 
       "module/start" = {

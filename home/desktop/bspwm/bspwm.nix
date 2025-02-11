@@ -17,12 +17,10 @@
   home.file.".config/bspwm/keybindings".source = ../../../config/bspwm/keybindings;
   home.file.".config/bspwm/scripts" = {
     source = ../../../config/bspwm/scripts;
-    # copy the scripts directory recursively
     recursive = true;
-    executable = true; # make all scripts executable
+    executable = true;
   };
 
-  # set cursor size and dpi for 4k monitor
   xresources.properties = {
     "Xcursor.size" = 24;
     "Xft.dpi" = 96;
@@ -68,7 +66,4 @@
     "*color7" = "#bac2de";
     "*color15" = "#a6adc8";
   };
-
-  # enable dunst w/home-manager when using bspwm
-  #services.dunst.enable = false;
 }
