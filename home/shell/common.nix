@@ -8,7 +8,6 @@
     alejandra
     deadnix
     statix
-    zsh-powerlevel10k
   ];
 
   programs.direnv = {

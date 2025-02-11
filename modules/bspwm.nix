@@ -46,7 +46,7 @@
     tumbler.enable = true; # Thumbnail generation
     udisks2.enable = true; # Disk management service
     upower.enable = true; # Power management
-    greenclip.enable = true; # Clipboard manager
+    clipcat.enable = true; # Clipboard manager
   };
 
   # ==========================================================================

@@ -7,16 +7,16 @@
   # wallpaper, binary file
   home.file.".config/bspwm/wallpaper.jpg".source = ../../wallpaper.jpg;
   home.file.".config/bspwm/bspwmrc" = {
-    source = ./bspwmrc;
+    source = ../../config/bspwm/bspwmrc;
     executable = true;
   };
   home.file.".config/sxhkd/sxhkdrc" = {
-    source = ./sxhkdrc;
+    source = ../../config/bspwm/sxhkdrc;
     executable = true;
   };
-  home.file.".config/bspwm/keybindings".source = ./keybindings;
+  home.file.".config/bspwm/keybindings".source = ../../config/bspwm/keybindings;
   home.file.".config/bspwm/scripts" = {
-    source = ./scripts;
+    source = ../../config/bspwm/scripts;
     # copy the scripts directory recursively
     recursive = true;
     executable = true; # make all scripts executable

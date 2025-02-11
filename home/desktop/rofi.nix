@@ -5,12 +5,11 @@
 }:
 {
   home.file.".config/rofi" = {
-    source = ./configs;
-    # copy the scripts directory recursively
+    source = ../../config/rofi/configs;
     recursive = true;
   };
   home.file.".local/share/rofi/themes" = {
-    source = ./themes;
+    source = ../../config/rofi/themes;
     recursive = true;
   };
 }

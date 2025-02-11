@@ -12,7 +12,8 @@ super + @space
 
 # rofi greenclip
 super + shift + @space
-	rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+  clipcat-menu
+#	rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 
 # make sxhkd reload its configuration files:
 super + Escape

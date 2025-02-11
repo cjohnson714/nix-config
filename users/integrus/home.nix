@@ -14,13 +14,9 @@
     # Application configurations (shared across desktop environments)
     ../../home/programs # General purpose applications
     ../../home/shell # Shell configurations (zsh, bash)
-    ../../home/neovim # Neovim editor configuration
 
     # Desktop environment components
-    ../../home/bspwm # Window manager configuration
-    ../../home/dunst # Notification daemon
-    ../../home/rofi # Application launcher
-    ../../home/polybar # Status bar configuration
+    ../../home/desktop # Window manager configuration
   ];
 
   # ==========================================================================

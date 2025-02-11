@@ -6,7 +6,7 @@ let
 in
 {
   imports = [
-    ./zsh
+    ./zsh.nix
     ./common.nix
     ./terminals.nix
   ];
