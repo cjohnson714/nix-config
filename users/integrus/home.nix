@@ -16,7 +16,7 @@
     ../../home/shell # Shell configurations (zsh, bash)
 
     # Desktop environment components
-    ../../home/desktop # Window manager configuration
+    ../../home/desktop/bspwm # Window manager configuration
   ];
 
   # ==========================================================================

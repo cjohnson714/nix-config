@@ -5,7 +5,7 @@
 }:
 {
   home.file.".config/jgmenu" = {
-    source = ../../config/jgmenu;
+    source = ../../../config/jgmenu;
     recursive = true;
   };
 }
