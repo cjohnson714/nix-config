@@ -57,8 +57,8 @@
         icon_path = "/usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/";
         sticky_history = true;
         history_length = 20;
-        dmenu = "/run/current-system/sw/bin/rofi -dmenu -p dunst";
-        browser = "/etc/profiles/per-user/integrus/bin/firefox -new-tab";
+        dmenu = "${pkgs.rofi}/bin/rofi -dmenu -p dunst";
+        browser = "${pkgs.firefox}/bin/firefox -new-tab";
         always_run_script = true;
         title = "Dunst";
         class = "Dunst";

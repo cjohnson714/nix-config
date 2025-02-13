@@ -6,5 +6,6 @@
     ./polybar.nix
     ./rofi.nix
     ./jgmenu.nix
+    ./picom.nix
   ];
 }
