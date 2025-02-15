@@ -11,5 +11,6 @@
     extraConfig = {
       credential.helper = "libsecret";
     };
-  };
+    signing.format = "ssh";
+    };
 }
