@@ -6,7 +6,6 @@
   imports = [
     ../../modules/system.nix
     ../../modules/bspwm.nix
-    ../../modules/optimizations.nix
     #../../modules/xfce.nix  # Optional: XFCE module (commented out)
 
     ./hardware-configuration.nix # Hardware scan results
