@@ -7,5 +7,6 @@
     ./rofi.nix
     ./jgmenu.nix
     ./picom.nix
+    #./eww.nix
   ];
 }
