@@ -379,6 +379,12 @@
     zsh.enable = true;
     dconf.enable = true;
     seahorse.enable = true;
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+      dedicatedServer.openFirewall = true;
+      extraCompatPackages = with pkgs; [ proton-ge-custom ];
+    };
   };
 
   # ==========================================================================
