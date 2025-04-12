@@ -6,5 +6,6 @@
     ./media.nix
     ./xdg.nix
     ./neovim.nix
+    ./messaging.nix
   ];
 }
