@@ -85,6 +85,62 @@
               }
             ];
           };
+
+        athena =
+          let
+            # Shared configuration variables
+            username = "integrus";
+            system = "x86_64-linux";
+
+            # Arguments passed to all modules
+            specialArgs = inputs // {
+              inherit username system;
+            };
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit system specialArgs;
+
+            # System configuration modules
+            modules = [
+              # Host-specific configuration
+              ./hosts/athena
+
+              # User-specific system configuration
+              ./users/${username}/nixos.nix
+
+              # Third-party modules
+              chaotic.nixosModules.default # Chaotic-nyx package integration
+              catppuccin.nixosModules.catppuccin # System-wide theming
+
+              # Custom package overlays
+              {
+                nixpkgs.overlays = [
+                  (import ./overlays/custom-packages.nix) # Local package customizations
+                ];
+              }
+
+              # Home Manager integration
+              home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  # Ensure package consistency between system and user environments
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+
+                  # Pass special arguments to home-manager
+                  extraSpecialArgs = specialArgs;
+
+                  # User-specific home configuration
+                  users.${username} = {
+                    imports = [
+                      ./users/${username}/home.nix # User environment config
+                      catppuccin.homeManagerModules.catppuccin # User-level theming
+                    ];
+                  };
+                };
+              }
+            ];
+          };
       };
     };
 }
