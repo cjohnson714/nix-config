@@ -100,7 +100,21 @@ alias ls="${aliases[ls]:-ls} -A"
 
 # NixOS Update
 alias update='nix flake update'
-alias upgrade='noglob sudo nixos-rebuild switch --flake .#nixos-vm'
+# Set the upgrade alias based on the hostname using the $HOST variable
+case "$HOST" in
+  nixos-vm)
+    alias upgrade='noglob sudo nixos-rebuild switch --flake .#nixos-vm'
+    ;;
+  athena)
+    alias upgrade='noglob sudo nixos-rebuild switch --flake .#athena'
+    ;;
+  *)
+    # Optional: Handle other hostnames if necessary
+    echo "Warning: 'upgrade' alias not specifically configured for hostname '$HOST'. You might need to specify the flake target manually." >&2
+    # You could set a default here if desired, e.g.:
+    # alias upgrade='noglob sudo nixos-rebuild switch'
+    ;;
+esac
 
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
