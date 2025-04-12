@@ -237,6 +237,8 @@
       jack.enable = true;
       # media-session.enable = true; # Enabled by default
     };
+
+    bpftune.enable = true; # Enable BPF tuning
   };
 
   # ==========================================================================
@@ -266,6 +268,8 @@
       "rtkit-daemon".serviceConfig.LogLevelMax = "info";
       "user@.service".serviceConfig.Delegate = "cpu cpuset io memory pids";
     };
+
+    oomd.enable = true; # Enable OOMD (Out-Of-Memory Daemon)
   };
 
   # ==========================================================================
