@@ -4,8 +4,8 @@
     ./common.nix
     ./git.nix
     ./media.nix
-    ./xdg.nix
-    ./neovim.nix
     ./messaging.nix
+    ./neovim.nix
+    ./xdg.nix
   ];
 }
