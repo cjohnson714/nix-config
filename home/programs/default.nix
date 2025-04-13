@@ -7,6 +7,7 @@
     ./media.nix
     ./messaging.nix
     ./neovim.nix
+    ./nvidia.nix
     ./xdg.nix
   ];
 }
