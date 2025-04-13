@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   ...
 }:
 # media - control and enjoy audio/video
@@ -26,6 +27,11 @@
         pkgs.mpvScripts.autosubsync-mpv
       ];
     };
+  };
+
+  home.file.".config/mpv" = {
+    source = ../../config/mpv;
+    recursive = true;
   };
 
   services = {
