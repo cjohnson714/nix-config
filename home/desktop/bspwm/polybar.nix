@@ -57,6 +57,8 @@
         font-5 = "Noto Sans CJK KR:weight=semibold:size=12;2";
         font-6 = "Noto Sans CJK SC:weight=semibold:size=12;2";
         font-7 = "Noto Sans CJK TC:weight=semibold:size=12;2";
+        font-8 = "Noto Color Emoji:scale=10;2";
+
         padding-left = "0px";
         padding-right = "10px";
         module-margin = "4px";
