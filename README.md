@@ -25,8 +25,8 @@ This repository contains my evolving NixOS configuration, structured around **Ho
 │   └── ⚙️ system.nix    # General system settings
 ├── 👤 users             # User-specific configurations
 │   └── 🏠 integrus      # Personalized setup
-│       ├── 🏡 home.nix  
-│       └── 🛠️ nixos.nix 
+│       ├── 🏡 home.nix
+│       └── 🛠️ nixos.nix
 └── 🖼️ wallpaper.jpg     # Desktop wallpaper
 ```
 
@@ -59,6 +59,12 @@ cp /etc/nixos/hardware-configuration.nix hosts/nixos-vm/
 ```
 
 This step is crucial for ensuring that the configuration properly accounts for your system's hardware, including disk layouts and network interfaces, preventing potential boot failures due to mismatched settings.
+
+Make sure you track the new hardware-configuration.nix if one didn't exist before:
+
+```bash
+git add .
+```
 
 ### 3. ⚡ Apply the Configuration
 
@@ -109,4 +115,3 @@ This setup draws significant inspiration from [ryan4yin/nix-config](https://gith
 ## 📜 License
 
 This configuration is licensed under the MIT License. See the [LICENSE](LICENSE) file for details. Certain aspects of this setup are derived from [ryan4yin/nix-config](https://github.com/ryan4yin/nix-config), which is also licensed under MIT.
-
