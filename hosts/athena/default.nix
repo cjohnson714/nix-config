@@ -15,13 +15,22 @@
   #                               Bootloader
   # =========================================================================
 
-  boot.loader = {
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot"; # Mount point for EFI system partition
+  boot = {
+    loader.grub = {
+      enable = true;
+      device = "/dev/sdc";
+      useOSProber = true;
+      enableCryptodisk = true;
     };
-    systemd-boot.enable = true; # Use systemd-boot bootloader
   };
+
+  # Setup keyfile
+  boot.initrd.secrets = {
+    "/boot/crypto_keyfile.bin" = null;
+  };
+
+  boot.initrd.luks.devices."luks-f274972b-bd67-4560-a219-726ece6cd396".keyFile = "/boot/crypto_keyfile.bin";
+
 
   # =========================================================================
   #                               Networking
@@ -55,6 +64,12 @@
     nvidiaSettings = true; # Enable NVIDIA settings
     package = config.boot.kernelPackages.nvidiaPackages.stable; # Use stable NVIDIA driver
   };
+  
+  # =========================================================================
+  #                                 Monitors
+  # =========================================================================
+
+
 
   # =========================================================================
   #                               System Configuration

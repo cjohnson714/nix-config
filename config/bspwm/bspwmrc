@@ -8,14 +8,30 @@
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 
-bspc monitor -d I II III IV V VI VII VIII IX X
+if [[ $(xrandr -q | grep "DP-4 connected") ]];
+then
+       xrandr --output DVI-D-0 --off \
+       --output HDMI-0 --mode 1920x1080 --pos 0x840 --rotate left \
+       --output DP-0 --mode 1920x1080 --pos 1400x0 --rotate normal \
+       --output DP-1 --off \
+       --output DP-2 --mode 1920x1080 --pos 3640x1260 --rotate normal \
+       --output DP-3 --off \
+       --output DP-4 --primary --mode 2560x1440 --pos 1080x1080 --rotate normal \
+       --output DP-5 --off
+       bspc monitor DP-4 -d I III IV IX
+       bspc monitor HDMI-0 -d II
+       bspc monitor DP-2 -d VII
+       bspc monitor DP-0 -d V
+else
+    bspc monitor -d I II III IV V VI VII VIII IX X
+fi
 
 bspc config border_width         5
 bspc config window_gap          10
 
-bspc config normal_border_color "#89b4fa"
-bspc config active_border_color "#89b4fa"
-bspc config focused_border_color "#f5c2e7"
+bspc config normal_border_color "#313244"
+bspc config active_border_color "#313244"
+bspc config focused_border_color "#cba6f7"
 bspc config presel_feedback_color "#fab387"
 
 bspc config focus_follows_pointer true
@@ -32,18 +48,19 @@ bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 bspc config pointer_motion_interval 7ms
 
-bspc rule -a Gimp desktop='^8' state=floating follow=on
-bspc rule -a firefox desktop='^2' follow=on
-bspc rule -a kitty desktop='^1' follow=on
-bspc rule -a Code desktop='^4' follow=on
-bspc rule -a Thunar desktop='^3' follow=on
-bspc rule -a mpv desktop='^5' follow=on
-bspc rule -a Spotify desktop='^6' follow=on
-bspc rule -a ayugram-desktop desktop='^7' follow=on
-bspc rule -a telegram-desktop desktop='^7' follow=on
-bspc rule -a Discord desktop='^8' follow=on
-bspc rule -a Lutris desktop='^9' follow=on
-bspc rule -a Steam desktop='^9' follow=on
+bspc rule -a Gimp desktop='VII' state=floating follow=on
+bspc rule -a firefox desktop='II' follow=on
+bspc rule -a kitty desktop='I' follow=on
+bspc rule -a Code desktop='IV' follow=on
+bspc rule -a Thunar desktop='III' follow=on
+bspc rule -a mpv desktop='V' follow=on
+bspc rule -a Spotify desktop='V' follow=on
+bspc rule -a ayugram-desktop desktop='VII' follow=on
+bspc rule -a telegram-desktop desktop='VII' follow=on
+bspc rule -a Signal desktop='VII' follow=on
+bspc rule -a Discord desktop='VII' follow=on
+bspc rule -a Lutris desktop='IX' follow=on
+bspc rule -a Steam desktop='IX' follow=on
 
 feh --no-fehbg --bg-fill ~/.config/bspwm/wallpaper.jpg
 #polybar bottom -c ~/.config/polybar/config.ini &
