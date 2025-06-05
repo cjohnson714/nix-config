@@ -18,7 +18,7 @@ then
        --output DP-3 --off \
        --output DP-4 --primary --mode 2560x1440 --rate 143.96 --pos 1080x1080 --rotate normal \
        --output DP-5 --off
-       bspc monitor DP-4 -d I III IV IX
+       bspc monitor DP-4 -d I III IV IX X
        bspc monitor HDMI-0 -d II
        bspc monitor DP-2 -d VII
        bspc monitor DP-0 -d V
