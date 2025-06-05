@@ -67,6 +67,8 @@
         modules-right = "player-mpris-tail pulseaudio tray date";
         scroll-up = "#bspwm.prev";
         scroll-down = "#bspwm.next";
+
+        wm-restack = "bspwm";
       };
 
       "module/spacer" = {
