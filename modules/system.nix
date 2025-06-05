@@ -123,7 +123,8 @@
     enable = true;
     dns = "systemd-resolved";
   };
-  networking.firewall.enable = false; # Disable firewall (configure ports as needed)
+  networking.firewall.enable = true;
+  networking.nftables.enable = true;
 
   # ==========================================================================
   #                               Udev Configuration
