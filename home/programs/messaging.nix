@@ -6,8 +6,13 @@
 {
   home.packages = with pkgs; [
     # chat
-    discord
     ayugram-desktop
     signal-desktop
+
+    (discord.override {
+      withOpenASAR = true; # can do this here too
+      withVencord = true;
+    })
+
   ];
 }
