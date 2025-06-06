@@ -76,6 +76,6 @@ xsetroot -cursor_name left_ptr &
 nvidia-settings --load-config-only &
 #thunar --daemon &
 #udiskie &
-xinput --set-prop "12" "libinput Accel Profile Enabled" 0 1 0 &
+xinput --set-prop "13" "libinput Accel Profile Enabled" 0 1 0 &
 #xsettingsd &
 #~/.tumblerd.sh &
