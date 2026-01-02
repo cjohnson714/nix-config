@@ -2,8 +2,12 @@
   pkgs,
   config,
   lib,
+  nixpkgs-stable,
   ...
 }:
+let
+  stable-pkgs = nixpkgs-stable.legacyPackages.${pkgs.system};
+in
 {
   # Make sure any programs started by polybar have the correct
   # environment variables set.
@@ -26,7 +30,7 @@
   */
   services.polybar = {
     enable = true;
-    package = pkgs.polybarFull;
+    package = stable-pkgs.polybarFull;
 
     script = ''
       # Terminate already running bar instances

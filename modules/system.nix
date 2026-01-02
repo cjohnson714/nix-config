@@ -14,7 +14,7 @@
   #                                     Kernel
   # ==========================================================================
 
-  boot.kernelPackages = pkgs.linuxPackages_cachyos; # CachyOS Kernel
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
   boot.kernel.sysctl = {
     "vm.swappiness" = 100;
@@ -63,14 +63,14 @@
 
     substituters = [
       "https://cache.nixos.org"
-      "https://chaotic-nyx.cachix.org"
       "https://catppuccin.cachix.org"
+      "https://nix-community.cachix.org"
     ]; # Use official Nix cache
 
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8"
       "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
 
     builders-use-substitutes = true; # Use substitutes
@@ -176,7 +176,7 @@
     scx = {
       enable = true;
       scheduler = "scx_lavd";
-      package = pkgs.scx_git.full; # Use most up-to-date scheduler
+      package = pkgs.scx.full; # Use most up-to-date scheduler
     };
 
     timesyncd = {
@@ -246,11 +246,11 @@
   #                               systemd Configuration
   # ==========================================================================
   systemd = {
-    extraConfig = ''
-      DefaultTimeoutStartSec=15s
-      DefaultTimeoutStopSec=10s
-      DefaultLimitNOFILE=2048:2097152
-    '';
+    settings.Manager = {
+      DefaultTimeoutStartSec = "15s";
+      DefaultTimeoutStopSec = "10s";
+      DefaultLimitNOFILE = "2048:2097152";
+    };
 
     user.extraConfig = ''
       DefaultLimitNOFILE=1024:1048576
@@ -270,7 +270,7 @@
       "user@.service".serviceConfig.Delegate = "cpu cpuset io memory pids";
     };
 
-    oomd.enable = true; # Enable OOMD (Out-Of-Memory Daemon)
+    oomd.enable = true;
   };
 
   # ==========================================================================
@@ -281,11 +281,11 @@
     packages = with pkgs; [
       # Install custom fonts
       font-awesome
-      vistafonts
+      vista-fonts
       material-design-icons
       noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       nerd-fonts.fira-code
       nerd-fonts.jetbrains-mono
       nerd-fonts.caskaydia-cove
@@ -357,7 +357,8 @@
       tree
       vim
       wget
-      xfce.thunar
+      thunar
+      nh
     ];
 
     variables = {
@@ -384,7 +385,7 @@
       enable = true;
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
-      extraCompatPackages = with pkgs; [ proton-ge-custom ];
+      extraCompatPackages = with pkgs; [ proton-ge-bin ];
     };
   };
 

@@ -63,7 +63,6 @@
     libinput
     lxqt.lxqt-policykit
     nwg-look
-    polybar
     rofi
     sxhkd
     sysstat
@@ -85,7 +84,7 @@
   programs = {
     thunar = {
       enable = true; # Enable Thunar
-      plugins = with pkgs.xfce; [
+      plugins = with pkgs; [
         thunar-archive-plugin
         thunar-volman
         thunar-media-tags-plugin

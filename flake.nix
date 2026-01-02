@@ -7,11 +7,14 @@
     # Core NixOS packages (unstable channel)
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
+
     # Community package collection
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    # chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
     # Theme customization framework
     catppuccin.url = "github:catppuccin/nix";
+    catppuccin.inputs.nixpkgs.follows = "nixpkgs"; # Use same nixpkgs version
 
     # User environment management
     home-manager.url = "github:nix-community/home-manager";
@@ -22,8 +25,8 @@
     inputs@{
       self,
       nixpkgs,
+      nixpkgs-stable,
       home-manager,
-      chaotic,
       catppuccin,
       ...
     }:
@@ -53,7 +56,7 @@
               ./users/${username}/nixos.nix
 
               # Third-party modules
-              chaotic.nixosModules.default # Chaotic-nyx package integration
+              # chaotic.nixosModules.default # Chaotic-nyx package integration
               catppuccin.nixosModules.catppuccin # System-wide theming
 
               # Custom package overlays
@@ -70,6 +73,7 @@
                   # Ensure package consistency between system and user environments
                   useGlobalPkgs = true;
                   useUserPackages = true;
+                  backupFileExtension = "hm-backup";
 
                   # Pass special arguments to home-manager
                   extraSpecialArgs = specialArgs;
@@ -78,7 +82,7 @@
                   users.${username} = {
                     imports = [
                       ./users/${username}/home.nix # User environment config
-                      catppuccin.homeManagerModules.catppuccin # User-level theming
+                      catppuccin.homeModules.catppuccin # User-level theming
                     ];
                   };
                 };
@@ -109,7 +113,7 @@
               ./users/${username}/nixos.nix
 
               # Third-party modules
-              chaotic.nixosModules.default # Chaotic-nyx package integration
+              # chaotic.nixosModules.default # Chaotic-nyx package integration
               catppuccin.nixosModules.catppuccin # System-wide theming
 
               # Custom package overlays
@@ -126,6 +130,7 @@
                   # Ensure package consistency between system and user environments
                   useGlobalPkgs = true;
                   useUserPackages = true;
+                  backupFileExtension = "hm-backup";
 
                   # Pass special arguments to home-manager
                   extraSpecialArgs = specialArgs;
@@ -134,7 +139,7 @@
                   users.${username} = {
                     imports = [
                       ./users/${username}/home.nix # User environment config
-                      catppuccin.homeManagerModules.catppuccin # User-level theming
+                      catppuccin.homeModules.catppuccin # User-level theming
                     ];
                   };
                 };

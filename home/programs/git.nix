@@ -8,9 +8,9 @@
   programs.git = {
     enable = true;
     package = pkgs.gitFull;
-    extraConfig = {
+    settings = {
       credential.helper = "libsecret";
     };
     signing.format = "ssh";
-    };
+  };
 }

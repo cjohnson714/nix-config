@@ -24,8 +24,8 @@
   # ==========================================================================
   # Sets global Git credentials and basic version control settings.
 
-  programs.git = {
-    userName = "cjohnson714"; # Global Git username
-    userEmail = "cjohnson714@gmail.com"; # Associated email for commits
+  programs.git.settings.user = {
+    name = "cjohnson714"; # Global Git username
+    email = "cjohnson714@gmail.com"; # Associated email for commits
   };
 }

@@ -8,7 +8,9 @@
   programs = {
     firefox = {
       enable = true;
-      profiles.${username} = { };
+      profiles.${username} = {
+        extensions.force = true;
+      };
     };
   };
 }

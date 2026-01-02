@@ -29,8 +29,8 @@
     "/boot/crypto_keyfile.bin" = null;
   };
 
-  boot.initrd.luks.devices."luks-f274972b-bd67-4560-a219-726ece6cd396".keyFile = "/boot/crypto_keyfile.bin";
-
+  boot.initrd.luks.devices."luks-f274972b-bd67-4560-a219-726ece6cd396".keyFile =
+    "/boot/crypto_keyfile.bin";
 
   # =========================================================================
   #                               Networking
@@ -64,12 +64,12 @@
     nvidiaSettings = true; # Enable NVIDIA settings
     package = config.boot.kernelPackages.nvidiaPackages.stable; # Use stable NVIDIA driver
   };
-  
+
+  boot.kernelParams = [ "nvidia-drm.fbdev=0" ]; # Disable fbdev so I can have a TTY
+
   # =========================================================================
   #                                 Monitors
   # =========================================================================
-
-
 
   # =========================================================================
   #                               System Configuration

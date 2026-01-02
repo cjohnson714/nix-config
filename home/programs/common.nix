@@ -1,6 +1,8 @@
 {
   lib,
   pkgs,
+  username,
+  config,
   ...
 }:
 {
@@ -21,10 +23,10 @@
     # IDE
     vscode
 
-    nodejs
-    nodePackages.npm
-    nodePackages.pnpm
-    yarn
+    #nodePackages_latest.nodejs
+    #nodePackages.npm
+    #nodePackages.pnpm
+    #yarn
   ];
 
   programs = {
@@ -47,11 +49,25 @@
     jq.enable = true; # A lightweight and flexible command-line JSON processor
     ssh = {
       enable = true;
-      extraConfig = ''
-        Host github.com
-          IdentityFile ~/.ssh/id_ed25519
-          AddKeysToAgent yes
-      '';
+      enableDefaultConfig = false;
+      matchBlocks = {
+        "github.com" = {
+          identityFile = "~/.ssh/id_ed25519";
+          extraOptions = {
+            "AddKeysToAgent" = "yes";
+          };
+        };
+      };
+    };
+
+    nh = {
+      enable = true;
+      clean = {
+        enable = true;
+        extraArgs = "--keep-since 4d --keep 3";
+      };
+      # Point this to your config directory
+      flake = "${config.home.homeDirectory}/nix-config";
     };
   };
 
@@ -89,7 +105,7 @@
     accent = "mauve";
     enable = true;
     cache.enable = true;
-    gtk.enable = true;
+    #gtk.enable = true;
     gtk.icon.enable = true;
     cursors.enable = true;
     btop.enable = true;

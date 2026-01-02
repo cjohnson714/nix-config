@@ -18,7 +18,6 @@
     mpg123
     khronos-ocl-icd-loader
     openal
-    proton-ge-custom
     protontricks
     liberation_ttf
     wine
