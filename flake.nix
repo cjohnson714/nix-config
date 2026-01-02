@@ -45,10 +45,12 @@
             };
           in
           nixpkgs.lib.nixosSystem {
-            inherit system specialArgs;
+            inherit specialArgs;
 
             # System configuration modules
             modules = [
+              { nixpkgs.hostPlatform = system; }
+
               # Host-specific configuration
               ./hosts/nixos-vm
 
@@ -102,10 +104,13 @@
             };
           in
           nixpkgs.lib.nixosSystem {
-            inherit system specialArgs;
+            inherit specialArgs;
 
             # System configuration modules
             modules = [
+
+              { nixpkgs.hostPlatform = system; }
+
               # Host-specific configuration
               ./hosts/athena
 
