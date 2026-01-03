@@ -359,6 +359,8 @@
       wget
       thunar
       nh
+      firefox
+      warp-terminal
     ];
 
     variables = {
@@ -368,10 +370,12 @@
       XFT_SUBPIXEL = "rgb";
     };
 
-    sessionVariables = {
-      MOZ_ENABLE_WAYLAND = "1";
-      MOZ_DISABLE_CONTENT_SANDBOX = "1";
-    };
+    /*
+      sessionVariables = {
+         MOZ_ENABLE_WAYLAND = "1";
+         MOZ_DISABLE_CONTENT_SANDBOX = "0";
+       };
+    */
   };
 
   # ==========================================================================

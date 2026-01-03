@@ -18,7 +18,6 @@
     # Desktop environment components
     ../../home/desktop/bspwm # Window manager configuration
   ];
-
   # ==========================================================================
   #                              Git Configuration
   # ==========================================================================

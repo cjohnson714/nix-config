@@ -7,18 +7,28 @@
     # Core NixOS packages (unstable channel)
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    # Stable NixOS packages (25.11 release)
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
 
-    # Community package collection
-    # chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-
-    # Theme customization framework
-    catppuccin.url = "github:catppuccin/nix";
-    catppuccin.inputs.nixpkgs.follows = "nixpkgs"; # Use same nixpkgs version
+    catppuccin = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs"; # Use same nixpkgs version
+    };
 
     # User environment management
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs"; # Use same nixpkgs version
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs"; # Use same nixpkgs version
+    };
+
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
+
   };
 
   outputs =
@@ -28,6 +38,7 @@
       nixpkgs-stable,
       home-manager,
       catppuccin,
+      zen-browser,
       ...
     }:
     {
@@ -85,6 +96,7 @@
                     imports = [
                       ./users/${username}/home.nix # User environment config
                       catppuccin.homeModules.catppuccin # User-level theming
+                      inputs.zen-browser.homeModules.beta # Zen Browser configuration
                     ];
                   };
                 };
@@ -145,6 +157,7 @@
                     imports = [
                       ./users/${username}/home.nix # User environment config
                       catppuccin.homeModules.catppuccin # User-level theming
+                      inputs.zen-browser.homeModules.beta # Zen Browser configuration
                     ];
                   };
                 };
