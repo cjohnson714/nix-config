@@ -1,13 +1,16 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   # NixOS System Configuration
 
   imports = [
     ../../modules/system.nix
-    ../../modules/bspwm.nix
-    #../../modules/xfce.nix
-
+    #../../modules/bspwm.nix
     ../../modules/niri.nix
 
     ./hardware-configuration.nix

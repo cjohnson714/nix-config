@@ -23,7 +23,6 @@
         home-manager.follows = "home-manager";
       };
     };
-
   };
 
   outputs =
