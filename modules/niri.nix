@@ -1,10 +1,16 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
-  # Wayland compositor: niri
-  # This enables the system-wide niri program so it can be used as a desktop session.
-
-  programs.niri = {
-    enable = true;
-    package = pkgs.niri;
+  programs = {
+    niri = {
+      enable = true;
+      package = pkgs.niri;
+    };
+    dms-shell = {
+      enable = true;
+      systemd.enable = true;
+      enableClipboard = true;
+      enableDynamicTheming = true;
+      package = pkgs.dms-shell;
+    };
   };
 }
