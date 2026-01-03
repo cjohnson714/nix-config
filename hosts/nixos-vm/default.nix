@@ -8,6 +8,8 @@
     ../../modules/bspwm.nix
     #../../modules/xfce.nix  # Optional: XFCE module (commented out)
 
+    ../../modules/niri.nix
+
     ./hardware-configuration.nix # Hardware scan results
   ];
 

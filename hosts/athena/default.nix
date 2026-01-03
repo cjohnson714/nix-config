@@ -8,6 +8,8 @@
     ../../modules/bspwm.nix
     #../../modules/xfce.nix  # Optional: XFCE module (commented out)
 
+    ../../modules/niri.nix
+
     ./hardware-configuration.nix # Hardware scan results
   ];
 
@@ -65,12 +67,23 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable; # Use stable NVIDIA driver
   };
 
-  boot.kernelParams = [ "nvidia-drm.fbdev=0" ]; # Disable fbdev so I can have a TTY
+  # fix black screen on boot with nvidia, fix console output
+  boot.kernelParams = [
+    "nvidia-drm.fbdev=0"
+    "video=DP-3:2560x1440@144"
+    "video=DP-1:d"
+    "video=DP-2:d"
+    "video=HDMI-A-1:d"
+  ];
 
   # =========================================================================
   #                                 Monitors
   # =========================================================================
-
+  # sddm for just main monitor
+  systemd.tmpfiles.rules = [
+    "d /var/lib/sddm/.config 0711 sddm sddm -"
+    "f /var/lib/sddm/.config/weston.ini 0644 sddm sddm - [core]\nshell=desktop-shell.so\n\n[output]\nname=DP-3\nmode=2560x1440@143.96\nprimary=true\n\n[output]\nname=DP-1\nmode=off\n\n[output]\nname=DP-2\nmode=off\n\n[output]\nname=HDMI-A-1\nmode=off"
+  ];
   # =========================================================================
   #                               System Configuration
   # =========================================================================

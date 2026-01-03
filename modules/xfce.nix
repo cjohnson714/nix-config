@@ -3,8 +3,13 @@
   # bspwm related options
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
   services.displayManager = {
+    # Use SDDM as the graphical display manager
+    sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
+
     defaultSession = "none+xfce";
-    ly.enable = true;
   };
   services.xserver = {
     enable = true;

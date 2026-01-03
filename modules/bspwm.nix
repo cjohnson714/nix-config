@@ -5,13 +5,14 @@
   # ==========================================================================
   services = {
     displayManager = {
-      defaultSession = "none+bspwm"; # Start bspwm directly
-      ly = {
-        enable = true; # Enable LY display manager
-        settings = {
-          animation = "matrix"; # LY animation style
-        };
+      # Use SDDM as the graphical display manager
+      sddm = {
+        enable = true;
+        wayland.enable = true;
       };
+
+      # Keep bspwm as the default X11 session
+      defaultSession = "none+bspwm"; # Start bspwm directly
     };
 
     xserver = {

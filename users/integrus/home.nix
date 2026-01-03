@@ -17,6 +17,7 @@
 
     # Desktop environment components
     ../../home/desktop/bspwm # Window manager configuration
+    ../../home/desktop/niri.nix # Base Niri compositor configuration
   ];
   # ==========================================================================
   #                              Git Configuration

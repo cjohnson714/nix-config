@@ -23,6 +23,9 @@
     # IDE
     vscode
 
+    # Wayland gamma control UI
+    wl-gammactl
+
     #nodePackages_latest.nodejs
     #nodePackages.npm
     #nodePackages.pnpm
@@ -43,6 +46,11 @@
         pager = "less -FR";
       };
     };
+
+    # Niri defaults expect these programs for Super+T (terminal) and
+    # Super+D (launcher).
+    alacritty.enable = true;
+    fuzzel.enable = true;
 
     btop.enable = true; # replacement of htop/nmon
     eza.enable = true; # A modern replacement for ‘ls’

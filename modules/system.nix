@@ -372,7 +372,6 @@
 
     sessionVariables = {
       MOZ_ENABLE_WAYLAND = "1";
-      MOZ_DISABLE_CONTENT_SANDBOX = "0";
     };
 
   };
@@ -384,6 +383,24 @@
     zsh.enable = true;
     dconf.enable = true;
     seahorse.enable = true;
+
+    # DankMaterialShell system-wide via native nixpkgs NixOS module
+    "dms-shell" = {
+      enable = true;
+      systemd = {
+        enable = true;
+        restartIfChanged = true;
+      };
+
+      # Enable core shell features as per official docs
+      enableSystemMonitoring = true;
+      enableClipboard = true;
+      enableVPN = true;
+      enableDynamicTheming = true;
+      enableAudioWavelength = true;
+      enableCalendarEvents = true;
+    };
+
     steam = {
       enable = true;
       remotePlay.openFirewall = true;
