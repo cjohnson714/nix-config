@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   # bspwm related options
-  environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
+  environment.pathsToLink = [ "/libexec" ];
   services.displayManager = {
     # Use SDDM as the graphical display manager
     sddm = {
@@ -13,6 +13,8 @@
   };
   services.xserver = {
     enable = true;
+
+    # Configure keymap in X11
 
     desktopManager = {
       xterm.enable = false;

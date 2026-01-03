@@ -23,13 +23,7 @@
     # IDE
     vscode
 
-    # Wayland gamma control UI
     wl-gammactl
-
-    #nodePackages_latest.nodejs
-    #nodePackages.npm
-    #nodePackages.pnpm
-    #yarn
   ];
 
   programs = {
@@ -47,14 +41,12 @@
       };
     };
 
-    # Niri defaults expect these programs for Super+T (terminal) and
-    # Super+D (launcher).
     alacritty.enable = true;
     fuzzel.enable = true;
 
-    btop.enable = true; # replacement of htop/nmon
-    eza.enable = true; # A modern replacement for ‘ls’
-    jq.enable = true; # A lightweight and flexible command-line JSON processor
+    btop.enable = true;
+    eza.enable = true;
+    jq.enable = true;
     ssh = {
       enable = true;
       enableDefaultConfig = false;
@@ -74,7 +66,6 @@
         enable = true;
         extraArgs = "--keep-since 4d --keep 3";
       };
-      # Point this to your config directory
       flake = "${config.home.homeDirectory}/nix-config";
     };
   };

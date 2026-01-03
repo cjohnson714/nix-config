@@ -384,7 +384,6 @@
     dconf.enable = true;
     seahorse.enable = true;
 
-    # DankMaterialShell system-wide via native nixpkgs NixOS module
     "dms-shell" = {
       enable = true;
       systemd = {
@@ -392,7 +391,6 @@
         restartIfChanged = true;
       };
 
-      # Enable core shell features as per official docs
       enableSystemMonitoring = true;
       enableClipboard = true;
       enableVPN = true;

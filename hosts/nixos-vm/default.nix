@@ -6,11 +6,11 @@
   imports = [
     ../../modules/system.nix
     ../../modules/bspwm.nix
-    #../../modules/xfce.nix  # Optional: XFCE module (commented out)
+    #../../modules/xfce.nix
 
     ../../modules/niri.nix
 
-    ./hardware-configuration.nix # Hardware scan results
+    ./hardware-configuration.nix
   ];
 
   # =========================================================================
@@ -20,37 +20,30 @@
   boot.loader = {
     efi = {
       canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot"; # Mount point for EFI system partition
+      efiSysMountPoint = "/boot";
     };
-    systemd-boot.enable = true; # Use systemd-boot bootloader
+    systemd-boot.enable = true;
   };
 
   # =========================================================================
   #                               Networking
   # =========================================================================
 
-  networking.hostName = "nixos-vm"; # System hostname
-  # networking.wireless.enable = true; # Enable wireless support (wpa_supplicant) - Optional
-
-  # Network proxy configuration (if needed)
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  networking.networkmanager.enable = true; # Enable NetworkManager
-  # networking.defaultGateway = "192.168.5.201"; # Default gateway - Optional
+  networking.hostName = "nixos-vm";
+  networking.networkmanager.enable = true;
 
   # =========================================================================
   #                               Virtualization (QEMU)
   # =========================================================================
 
-  services.xserver.videoDrivers = [ "qxl" ]; # Video driver for QEMU
-  services.qemuGuest.enable = true; # Enable QEMU guest services
-  services.spice-vdagentd.enable = true; # Enable Spice vdagent
-  services.spice-autorandr.enable = true; # Enable Spice autorandr
+  services.xserver.videoDrivers = [ "qxl" ];
+  services.qemuGuest.enable = true;
+  services.spice-vdagentd.enable = true;
+  services.spice-autorandr.enable = true;
 
   # =========================================================================
   #                               System Configuration
   # =========================================================================
 
-  system.stateVersion = "25.05"; # NixOS release version (do not change unless you understand the implications)
+  system.stateVersion = "25.05";
 }

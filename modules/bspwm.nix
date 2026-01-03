@@ -5,49 +5,46 @@
   # ==========================================================================
   services = {
     displayManager = {
-      # Use SDDM as the graphical display manager
       sddm = {
         enable = true;
         wayland.enable = true;
       };
 
-      # Keep bspwm as the default X11 session
-      defaultSession = "none+bspwm"; # Start bspwm directly
+      defaultSession = "none+bspwm";
     };
 
     xserver = {
       enable = true;
 
       desktopManager = {
-        xterm.enable = false; # Disable default xterm
-        runXdgAutostartIfNone = true; # Autostart XDG apps (no DE)
+        xterm.enable = false;
+        runXdgAutostartIfNone = true;
       };
 
       windowManager.bspwm = {
-        enable = true; # Enable bspwm
+        enable = true;
       };
 
       xkb = {
-        layout = "us"; # Keyboard layout
-        variant = ""; # Keyboard variant
+        layout = "us";
+        variant = "";
       };
 
-      updateDbusEnvironment = true; # Ensure D-Bus environment variables are updated for X server sessions
+      updateDbusEnvironment = true;
     };
 
-    xrdp.defaultWindowManager = "bspwm"; # Set default window manager for xrdp
+    xrdp.defaultWindowManager = "bspwm";
 
     # ==========================================================================
     #                               System Services
     # ==========================================================================
-
-    accounts-daemon.enable = true; # Manage user accounts
-    gvfs.enable = true; # Virtual filesystem for GIO
-    libinput.enable = true; # Input device management
-    tumbler.enable = true; # Thumbnail generation
-    udisks2.enable = true; # Disk management service
-    upower.enable = true; # Power management
-    clipcat.enable = true; # Clipboard manager
+    accounts-daemon.enable = true;
+    gvfs.enable = true;
+    libinput.enable = true;
+    tumbler.enable = true;
+    udisks2.enable = true;
+    upower.enable = true;
+    clipcat.enable = true;
   };
 
   # ==========================================================================
@@ -84,7 +81,7 @@
   # ==========================================================================
   programs = {
     thunar = {
-      enable = true; # Enable Thunar
+      enable = true;
       plugins = with pkgs; [
         thunar-archive-plugin
         thunar-volman
@@ -92,16 +89,15 @@
       ];
     };
 
-    xfconf.enable = true; # Enable Xfconf for persistent Thunar settings
+    xfconf.enable = true;
   };
 
   # ==========================================================================
   #                               XDG Portal
   # ==========================================================================
-
   xdg.portal = {
-    enable = true; # Enable XDG portal
-    xdgOpenUsePortal = true; # Use XDG portal for opening files
+    enable = true;
+    xdgOpenUsePortal = true;
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
       xdg-desktop-portal
@@ -118,5 +114,5 @@
   # ==========================================================================
   #                               Environment Paths
   # ==========================================================================
-  environment.pathsToLink = [ "/libexec" ]; # Link /libexec from derivations
+  environment.pathsToLink = [ "/libexec" ];
 }

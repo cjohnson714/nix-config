@@ -6,11 +6,11 @@
   imports = [
     ../../modules/system.nix
     ../../modules/bspwm.nix
-    #../../modules/xfce.nix  # Optional: XFCE module (commented out)
+    #../../modules/xfce.nix
 
     ../../modules/niri.nix
 
-    ./hardware-configuration.nix # Hardware scan results
+    ./hardware-configuration.nix
   ];
 
   # =========================================================================
@@ -38,15 +38,8 @@
   #                               Networking
   # =========================================================================
 
-  networking.hostName = "athena"; # System hostname
-  # networking.wireless.enable = true; # Enable wireless support (wpa_supplicant) - Optional
-
-  # Network proxy configuration (if needed)
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  networking.networkmanager.enable = true; # Enable NetworkManager
-  # networking.defaultGateway = "192.168.5.201"; # Default gateway - Optional
+  networking.hostName = "athena";
+  networking.networkmanager.enable = true;
 
   # =========================================================================
   #                                 NVIDIA
@@ -56,15 +49,15 @@
     enable = true;
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ]; # Use NVIDIA driver
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
-    modesetting.enable = true; # Enable modesetting for NVIDIA
-    powerManagement.enable = false; # Disable power management for NVIDIA
-    powerManagement.finegrained = false; # Disable fine-grained power management
-    open = false; # Disable open source driver for NVIDIA
-    nvidiaSettings = true; # Enable NVIDIA settings
-    package = config.boot.kernelPackages.nvidiaPackages.stable; # Use stable NVIDIA driver
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    open = false;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   # fix black screen on boot with nvidia, fix console output
@@ -84,9 +77,10 @@
     "d /var/lib/sddm/.config 0711 sddm sddm -"
     "f /var/lib/sddm/.config/weston.ini 0644 sddm sddm - [core]\nshell=desktop-shell.so\n\n[output]\nname=DP-3\nmode=2560x1440@143.96\nprimary=true\n\n[output]\nname=DP-1\nmode=off\n\n[output]\nname=DP-2\nmode=off\n\n[output]\nname=HDMI-A-1\nmode=off"
   ];
+
   # =========================================================================
   #                               System Configuration
   # =========================================================================
 
-  system.stateVersion = "25.05"; # NixOS release version (do not change unless you understand the implications)
+  system.stateVersion = "25.05";
 }

@@ -1,31 +1,16 @@
 { pkgs, inputs, ... }:
 
 {
-  # ==========================================================================
-  #                     Home Manager Main Configuration
-  # ==========================================================================
-  # Entry point for user-specific environment and package configurations.
-  # Imports modular settings from component files in ../../home directory.
-
   imports = [
-    # Core system configuration (environment variables, base packages)
     ../../home/core.nix
-
-    # Application configurations (shared across desktop environments)
-    ../../home/programs # General purpose applications
-    ../../home/shell # Shell configurations (zsh, bash)
-
-    # Desktop environment components
-    ../../home/desktop/bspwm # Window manager configuration
-    ../../home/desktop/niri.nix # Base Niri compositor configuration
+    ../../home/programs
+    ../../home/shell
+    ../../home/desktop/bspwm
+    ../../home/desktop/niri
   ];
-  # ==========================================================================
-  #                              Git Configuration
-  # ==========================================================================
-  # Sets global Git credentials and basic version control settings.
 
   programs.git.settings.user = {
-    name = "cjohnson714"; # Global Git username
-    email = "cjohnson714@gmail.com"; # Associated email for commits
+    name = "cjohnson714";
+    email = "cjohnson714@gmail.com";
   };
 }
