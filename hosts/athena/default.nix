@@ -1,8 +1,8 @@
 { ... }:
 {
   imports = [
-    ../../nixos/modules/system
-    ../../nixos/modules/niri.nix
+    ../../nixos/modules
+    ../../nixos/modules/desktop/window-managers/niri.nix
 
     ./hardware-configuration.nix
   ];

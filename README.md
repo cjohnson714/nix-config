@@ -1,22 +1,117 @@
-# My NixOS flake
+# NixOS Configuration
 
-> **What this is:** my whole desktop stack (NixOS + Home Manager) in one repo. I want to **curl a script on the live ISO**, answer a short prompt or two, and land in a working system **without hand-copying `hardware-configuration.nix`** or shuffling files between disks. If you are reading this as someone else: fork it, rip out what you do not want, point `hosts/registry.nix` at your user — same bones, your choices.
+A modular, maintainable NixOS configuration with Home Manager integration.
 
----
+## Overview
 
-### The path I actually use
+This repository contains a complete NixOS desktop configuration designed for:
+- **Modularity**: Each component is self-contained and reusable
+- **Maintainability**: Clear structure and organization
+- **Flexibility**: Easy to customize and extend
+- **Installation**: One-command installation from live ISO
 
-1. Boot the **NixOS live image** (flakes on, network up).
-2. `nix-shell -p git` if `git` is missing.
-3. Run (swap branch / URL if you are not tracking `main`):
+## Quick Start
+
+1. Boot the **NixOS live image** (flakes enabled, network up)
+2. Install `git` if missing: `nix-shell -p git`
+3. Run the installer:
 
 ```bash
 curl -fsSL 'https://raw.githubusercontent.com/cjohnson714/nix-config/main/install/curl-installer.sh' | sudo bash
 ```
 
-That clones this repo and runs **`install/bootstrap.sh`**. Because the default clone URL is mine, you get a **single summary screen**: what I detected for platform/GPU, the disk I guessed, LUKS vs not, flake hostname, user. If it looks right, hit **Enter** and then confirm the wipe + LUKS passphrase when asked.
+## Structure
 
-**I do not want the hand-holding:** `OWNER_QUICKSTART=0` before running, or clone any other URL so `NIX_CONFIG_UPSTREAM_DEFAULT` is not set.
+```
+nix-config/
+├── flake.nix              # Main flake definition
+├── README.md              # This file
+├── install.sh             # Installation script
+├── lib/                   # Library functions
+├── nixos/                 # System configuration
+│   ├── modules/          # Reusable modules
+│   │   ├── core/         # Core system
+│   │   ├── desktop/      # Desktop environment
+│   │   │   └── window-managers/
+│   │   │       ├── bspwm/
+│   │   │       ├── niri/
+│   │   │       ├── xfce/
+│   │   │       └── shared/
+│   │   ├── hardware/     # Hardware modules
+│   │   ├── services/     # System services
+│   │   ├── networking/   # Network config
+│   │   ├── programs/     # System programs
+│   │   ├── environment/  # Environment
+│   │   ├── security/     # Security
+│   │   ├── gaming/       # Gaming
+│   │   └── default.nix
+│   └── hosts/             # Host configs
+├── home/                  # Home Manager
+│   ├── programs/groups/   # Program groups
+│   ├── desktop/          # Desktop config
+│   └── shell/            # Shell config
+├── hosts/                 # Host definitions
+├── docs/                  # Documentation
+└── packages/              # Custom packages
+```
+
+## Features
+
+### Window Managers
+- **BSPWM**: Highly configurable tiling window manager
+- **Niri**: Modern Wayland compositor
+- **XFCE**: Traditional desktop environment
+
+### Modular Design
+- **Core modules**: System fundamentals
+- **Desktop modules**: Window managers and desktop environments
+- **Hardware modules**: GPU and platform-specific configurations
+- **Service modules**: System services and daemons
+- **Program modules**: Software packages and configurations
+
+### Key Characteristics
+- **Single responsibility**: Each module has one clear purpose
+- **Consistency**: Uniform structure and naming conventions
+- **Scalability**: Easy to add new functionality
+- **Maintainability**: Clear documentation and organization
+
+## Configuration Philosophy
+
+1. **Modularity over monoliths**: Split large configurations into focused modules
+2. **Convention over configuration**: Use standard patterns and naming
+3. **Documentation over assumptions**: Clear structure and comments
+4. **Flexibility over rigidity**: Easy to customize and extend
+
+## Documentation
+
+- [`docs/STRUCTURE.md`](docs/STRUCTURE.md) - Complete repository structure
+- [`docs/CLEANUP.md`](docs/CLEANUP.md) - Cleanup and organization details
+
+## Installation Options
+
+### Quick Install (Recommended)
+Uses automatic hardware detection and sensible defaults.
+
+### Manual Install
+For full control over the installation process.
+
+### Custom Install
+Fork the repository and customize for your needs.
+
+## Requirements
+
+- NixOS with flakes enabled
+- Internet connection for initial setup
+- Sufficient disk space (recommended: 50GB+)
+
+## Support
+
+This configuration is designed to be:
+- **Self-documenting**: Clear structure and comments
+- **Modular**: Easy to modify individual components
+- **Extensible**: Simple to add new features
+
+For issues or questions, refer to the documentation and structure guides.
 
 **Tweaks without editing Nix first:** `OWNER_DEFAULT_USERNAME`, `OWNER_DEFAULT_SCHEME`, `DISK`, `DISKO_SCHEME`, `FLAKE_HOST`, `HOST_MODULE=…` — all documented in the header of `install/bootstrap.sh`.
 

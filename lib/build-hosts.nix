@@ -14,14 +14,14 @@ let
   profilePath =
     group: name:
     let
-      p = flakeRoot + "/nixos/profiles/${group}/${name}.nix";
+      p = flakeRoot + "/nixos/profiles/hardware/${group}/${name}.nix";
     in
     if builtins.pathExists p then p else null;
 
   platformModules =
     platform:
     let
-      p = profilePath "platform" platform;
+      p = profilePath "platforms" platform;
     in
     if p == null then [ ] else [ p ];
 
@@ -29,7 +29,7 @@ let
     gpu:
     let
       p = profilePath "gpu" gpu;
-      fallback = flakeRoot + "/nixos/profiles/gpu/none.nix";
+      fallback = flakeRoot + "/nixos/profiles/hardware/gpu/none.nix";
     in
     if p != null then [ p ] else [ fallback ];
 

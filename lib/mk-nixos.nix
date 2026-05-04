@@ -47,7 +47,7 @@ nixpkgs.lib.nixosSystem {
   modules =
     [
       { nixpkgs.hostPlatform = system; }
-      { system.stateVersion = "25.05"; }
+      { system.stateVersion = "25.11"; }
     ]
     ++ modules
     ++ sharedModules;

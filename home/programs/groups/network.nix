@@ -2,6 +2,6 @@
 { ... }:
 {
   imports = [
-    ../lftp.nix
+    ./lftp.nix
   ];
 }

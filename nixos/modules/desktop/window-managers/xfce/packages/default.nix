@@ -1,0 +1,5 @@
+{
+  imports = [
+    ./xfce-apps.nix
+  ];
+}

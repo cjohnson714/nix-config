@@ -2,8 +2,8 @@
 { ... }:
 {
   imports = [
-    ../common.nix
-    ../xdg.nix
-    ../git.nix
+    ./common.nix
+    ./xdg.nix
+    ./git.nix
   ];
 }

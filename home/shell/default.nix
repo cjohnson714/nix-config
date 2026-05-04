@@ -7,7 +7,6 @@ in
 {
   imports = [
     ./zsh.nix
-    ./common.nix
     ./terminals.nix
   ];
 
@@ -18,7 +17,7 @@ in
 
     EDITOR = "nvim";
     BROWSER = "firefox";
-    TERMINAL = "kitty";
+    TERMINAL = "alacritty";
 
     DELTA_PAGER = "less -R";
 

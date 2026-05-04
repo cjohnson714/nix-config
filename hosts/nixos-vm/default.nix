@@ -1,9 +1,9 @@
 { ... }:
 {
   imports = [
-    ../../nixos/modules/system
-    ../../nixos/modules/bspwm.nix
-    ../../nixos/modules/niri.nix
+    ../../nixos/modules
+    ../../nixos/modules/desktop/window-managers/bspwm.nix
+    ../../nixos/modules/desktop/window-managers/niri.nix
 
     ./hardware-configuration.nix
   ];

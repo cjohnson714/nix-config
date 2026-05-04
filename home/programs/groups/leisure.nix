@@ -2,9 +2,9 @@
 { ... }:
 {
   imports = [
-    ../browsers.nix
-    ../gaming.nix
-    ../media.nix
-    ../messaging.nix
+    ./browsers.nix
+    ./gaming.nix
+    ./media.nix
+    ./messaging.nix
   ];
 }

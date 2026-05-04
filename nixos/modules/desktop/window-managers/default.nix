@@ -1,0 +1,7 @@
+{
+  imports = [
+    ./bspwm
+    ./niri
+    ./xfce
+  ];
+}
