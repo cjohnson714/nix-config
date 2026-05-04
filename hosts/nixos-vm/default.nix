@@ -2,8 +2,8 @@
 {
   imports = [
     ../../nixos/modules
-    ../../nixos/modules/desktop/window-managers/bspwm.nix
-    ../../nixos/modules/desktop/window-managers/niri.nix
+    ../../nixos/modules/desktop/window-managers/bspwm
+    ../../nixos/modules/desktop/window-managers/niri
 
     ./hardware-configuration.nix
   ];

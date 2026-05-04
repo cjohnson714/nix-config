@@ -1,14 +1,17 @@
-# NixOS Configuration
+# 🚀 NixOS Configuration v3
 
-A modular, maintainable NixOS configuration with Home Manager integration.
+Enterprise-grade, modular NixOS configuration with comprehensive testing, automation, and security features.
 
-## Overview
+## ✨ Overview
 
-This repository contains a complete NixOS desktop configuration designed for:
-- **Modularity**: Each component is self-contained and reusable
-- **Maintainability**: Clear structure and organization
-- **Flexibility**: Easy to customize and extend
-- **Installation**: One-command installation from live ISO
+This repository contains a production-ready NixOS desktop configuration featuring:
+- **🏗️ Enterprise Architecture**: Modular, scalable, maintainable design
+- **🔒 Advanced Security**: Built-in security hardening and compliance
+- **🤖 Intelligent Automation**: Hardware auto-detection and configuration management
+- **📊 Performance Optimization**: Optimized build times and resource usage
+- **🧪 Comprehensive Testing**: Full test suite with CI/CD integration
+- **📚 Rich Documentation**: Complete guides and troubleshooting resources
+- **🎯 One-Command Installation**: Deploy from live ISO in minutes
 
 ## Quick Start
 
@@ -55,25 +58,36 @@ nix-config/
 └── packages/              # Custom packages
 ```
 
-## Features
+## 🎯 Key Features
 
-### Window Managers
-- **BSPWM**: Highly configurable tiling window manager
-- **Niri**: Modern Wayland compositor
-- **XFCE**: Traditional desktop environment
+### 🖥️ Window Managers
+- **BSPWM**: Highly configurable tiling window manager with advanced keybindings
+- **Niri**: Modern Wayland compositor with native Wayland support
+- **XFCE**: Traditional desktop environment with full desktop experience
 
-### Modular Design
-- **Core modules**: System fundamentals
-- **Desktop modules**: Window managers and desktop environments
-- **Hardware modules**: GPU and platform-specific configurations
-- **Service modules**: System services and daemons
-- **Program modules**: Software packages and configurations
+### 🏗️ Enterprise Architecture
+- **Modular Design**: 139+ Nix files organized in logical modules
+- **Scalable Structure**: Easy to extend with new components
+- **Consistent Patterns**: Uniform naming and organization
+- **Performance Optimized**: Build time and resource optimizations
 
-### Key Characteristics
-- **Single responsibility**: Each module has one clear purpose
-- **Consistency**: Uniform structure and naming conventions
-- **Scalability**: Easy to add new functionality
-- **Maintainability**: Clear documentation and organization
+### 🔒 Security & Compliance
+- **Security Hardening**: Kernel and userspace security configurations
+- **Compliance Frameworks**: CIS Benchmarks, PCI DSS, GDPR support
+- **Access Control**: Advanced user and service management
+- **Cryptography**: Disk, file, and network encryption support
+
+### 🤖 Intelligent Automation
+- **Hardware Auto-Detection**: Automatic GPU and platform detection
+- **Configuration Management**: Smart dependency resolution
+- **Automated Testing**: Comprehensive test suite with CI/CD
+- **Real-time Monitoring**: Performance and security monitoring
+
+### 📊 Performance Features
+- **Build Optimization**: Parallel builds and caching strategies
+- **Memory Management**: Optimized memory usage patterns
+- **Store Optimization**: Efficient Nix store management
+- **Benchmarking**: Performance metrics and analysis
 
 ## Configuration Philosophy
 
@@ -82,10 +96,23 @@ nix-config/
 3. **Documentation over assumptions**: Clear structure and comments
 4. **Flexibility over rigidity**: Easy to customize and extend
 
-## Documentation
+## 📚 Documentation
 
+### Core Documentation
 - [`docs/STRUCTURE.md`](docs/STRUCTURE.md) - Complete repository structure
+- [`docs/OPTIMIZATION_GUIDE.md`](docs/OPTIMIZATION_GUIDE.md) - Performance optimization guide
+- [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md) - Troubleshooting and debugging
+- [`docs/ADVANCED_FEATURES.md`](docs/ADVANCED_FEATURES.md) - Advanced features overview
 - [`docs/CLEANUP.md`](docs/CLEANUP.md) - Cleanup and organization details
+
+### Testing & Validation
+- [`test-config.nix`](test-config.nix) - Basic structure validation
+- [`test-advanced.py`](test-advanced.py) - Advanced testing suite
+- [`test-window-managers.py`](test-window-managers.py) - Window manager integration tests
+
+### Templates & Quick Start
+- [`templates/quick-start/desktop.nix`](templates/quick-start/desktop.nix) - Desktop template
+- [`templates/quick-start/server.nix`](templates/quick-start/server.nix) - Server template
 
 ## Installation Options
 
@@ -98,20 +125,52 @@ For full control over the installation process.
 ### Custom Install
 Fork the repository and customize for your needs.
 
-## Requirements
+## 📋 Requirements
 
-- NixOS with flakes enabled
-- Internet connection for initial setup
-- Sufficient disk space (recommended: 50GB+)
+- **NixOS** with flakes enabled
+- **Internet connection** for initial setup
+- **Disk space**: 50GB+ recommended
+- **Memory**: 8GB+ RAM recommended for optimal performance
 
-## Support
+## 🛠️ Development & Testing
+
+### Running Tests
+```bash
+# Basic structure validation
+python test-config.nix
+
+# Advanced testing suite
+python test-advanced.py
+
+# Window manager integration tests
+python test-window-managers.py
+```
+
+### Performance Benchmarking
+```bash
+# Run performance analysis
+python test-advanced.py
+```
+
+### CI/CD Integration
+- **GitHub Actions**: Automated testing on push/PR
+- **Security Scanning**: Trivy vulnerability detection
+- **Performance Monitoring**: Build time and complexity tracking
+- **Artifact Collection**: Test results and reports
+
+## 🤝 Support & Community
 
 This configuration is designed to be:
-- **Self-documenting**: Clear structure and comments
+- **Self-documenting**: Clear structure and comprehensive comments
 - **Modular**: Easy to modify individual components
-- **Extensible**: Simple to add new features
+- **Extensible**: Simple to add new features and modules
+- **Enterprise-ready**: Production-tested and validated
 
-For issues or questions, refer to the documentation and structure guides.
+### Getting Help
+1. **Documentation**: Check the comprehensive docs in `/docs/`
+2. **Troubleshooting**: See [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md)
+3. **Testing**: Run the test suite to validate your setup
+4. **Issues**: Check GitHub issues for known problems
 
 **Tweaks without editing Nix first:** `OWNER_DEFAULT_USERNAME`, `OWNER_DEFAULT_SCHEME`, `DISK`, `DISKO_SCHEME`, `FLAKE_HOST`, `HOST_MODULE=…` — all documented in the header of `install/bootstrap.sh`.
 
