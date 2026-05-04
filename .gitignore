@@ -39,6 +39,7 @@ desktop.ini  # Windows specific
 # Nix-specific files
 .nix-def/
 result*
+hosts/registry.local.nix
 
 # AI Garbage
 WARP.md

@@ -1,10 +1,33 @@
 {
-  description = "My system configuration managed with Nix Flakes";
+  description = "NixOS + Home Manager configuration (flake-parts, registry-driven hosts)";
+
+  nixConfig = {
+    extra-substituters = [
+      "https://cache.nixos.org"
+      "https://catppuccin.cachix.org"
+      "https://nix-community.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+  };
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     catppuccin = {
       url = "github:catppuccin/nix";
@@ -26,113 +49,8 @@
   };
 
   outputs =
-    inputs@{
-      self,
-      nixpkgs,
-      nixpkgs-stable,
-      home-manager,
-      catppuccin,
-      zen-browser,
-      ...
-    }:
-    {
-      nixosConfigurations = {
-        nixos-vm =
-          let
-            username = "integrus";
-            system = "x86_64-linux";
-
-            specialArgs = inputs // {
-              inherit username system;
-            };
-          in
-          nixpkgs.lib.nixosSystem {
-            inherit specialArgs;
-
-            modules = [
-              { nixpkgs.hostPlatform = system; }
-
-              ./hosts/nixos-vm
-
-              ./users/${username}/nixos.nix
-
-              catppuccin.nixosModules.catppuccin
-
-              {
-                nixpkgs.overlays = [
-                  (import ./overlays/custom-packages.nix)
-                ];
-              }
-
-              home-manager.nixosModules.home-manager
-              {
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
-                  backupFileExtension = "hm-backup";
-
-                  extraSpecialArgs = specialArgs;
-
-                  users.${username} = {
-                    imports = [
-                      ./users/${username}/home.nix
-                      catppuccin.homeModules.catppuccin
-                      inputs.zen-browser.homeModules.beta
-                    ];
-                  };
-                };
-              }
-            ];
-          };
-
-        athena =
-          let
-            username = "integrus";
-            system = "x86_64-linux";
-
-            specialArgs = inputs // {
-              inherit username system;
-            };
-          in
-          nixpkgs.lib.nixosSystem {
-            inherit specialArgs;
-
-            modules = [
-
-              { nixpkgs.hostPlatform = system; }
-
-              ./hosts/athena
-
-              ./users/${username}/nixos.nix
-
-              catppuccin.nixosModules.catppuccin
-
-              {
-                nixpkgs.overlays = [
-                  (import ./overlays/custom-packages.nix)
-                ];
-              }
-
-              home-manager.nixosModules.home-manager
-              {
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
-                  backupFileExtension = "hm-backup";
-
-                  extraSpecialArgs = specialArgs;
-
-                  users.${username} = {
-                    imports = [
-                      ./users/${username}/home.nix
-                      catppuccin.homeModules.catppuccin
-                      inputs.zen-browser.homeModules.beta
-                    ];
-                  };
-                };
-              }
-            ];
-          };
-      };
+    inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [ ./parts ];
     };
 }

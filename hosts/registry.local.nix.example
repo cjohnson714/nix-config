@@ -1,0 +1,16 @@
+# Copy to `hosts/registry.local.nix` (gitignored) to add or override registry entries.
+# Top-level merge is shallow: `hosts/registry.nix` `//` this file.
+#
+# Example — extra Home Manager imports for one machine:
+# {
+#   my-laptop = {
+#     system = "x86_64-linux";
+#     username = "you";
+#     platform = "laptop";
+#     gpu = "intel";
+#     host = ./my-laptop;
+#     homeImports = [ ./my-laptop/home-extra.nix ];
+#   };
+# }
+
+{ }

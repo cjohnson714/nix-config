@@ -1,6 +1,6 @@
+{ username, ... }:
 {
-  users.users.integrus = {
-    openssh.authorizedKeys.keys = [
-    ];
+  users.users.${username} = {
+    openssh.authorizedKeys.keys = [ ];
   };
 }
