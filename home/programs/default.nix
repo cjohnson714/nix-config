@@ -1,14 +1,9 @@
 {
   imports = [
-    ./browsers.nix
-    ./common.nix
-    ./gaming.nix
-    ./git.nix
-    ./lftp.nix
-    ./media.nix
-    ./messaging.nix
-    ./neovim.nix
-    ./nvidia.nix
-    ./xdg.nix
+    ./groups/core.nix
+    ./groups/development.nix
+    ./groups/leisure.nix
+    ./groups/network.nix
+    ./groups/hardware.nix
   ];
 }

@@ -30,4 +30,9 @@ git clone --depth 1 --branch "$NIX_CONFIG_BRANCH" "$NIX_CONFIG_REPO_URL" "$NIX_C
 export REPO_ROOT="$NIX_CONFIG_CLONE_DIR"
 cd "$NIX_CONFIG_CLONE_DIR" || die "cd failed"
 
+# Lets bootstrap show the one-screen “detected + defaults” summary (see install/lib/quickstart.sh).
+if [[ "$NIX_CONFIG_REPO_URL" == *"cjohnson714/nix-config"* ]]; then
+  export NIX_CONFIG_UPSTREAM_DEFAULT=1
+fi
+
 exec bash ./install/bootstrap.sh "$@"

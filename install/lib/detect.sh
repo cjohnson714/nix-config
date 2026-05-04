@@ -72,3 +72,35 @@ detect_gpu_tag() {
   fi
   echo "none"
 }
+
+# Short line for the quick summary card (DMI + virt).
+detect_machine_label() {
+  local virt product
+  virt="$(detect_virt)"
+  product="unknown"
+  [[ -r /sys/class/dmi/id/product_name ]] && product="$(tr -d '\0' </sys/class/dmi/id/product_name)"
+  if [[ "$virt" != "none" ]]; then
+    echo "${product} (virt: ${virt})"
+  else
+    echo "$product"
+  fi
+}
+
+# Best-effort install target: first internal disk PATH, else first whole-disk nvme by-id.
+suggest_install_disk() {
+  local d
+  d="$(lsblk -dnpo PATH,TYPE,RM 2>/dev/null | awk '$2=="disk" && $1 !~ /^\/dev\/loop/ && $1 !~ /^\/dev\/sr/ && ($3=="" || $3==0) { print $1; exit }')"
+  if [[ -n "$d" ]]; then
+    echo "$d"
+    return 0
+  fi
+  local id
+  for id in /dev/disk/by-id/nvme-*; do
+    [[ -e "$id" ]] || continue
+    [[ "$id" == *-part* ]] && continue
+    echo "$id"
+    return 0
+  done
+  echo ""
+  return 1
+}

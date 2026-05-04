@@ -1,15 +1,13 @@
 # Disk layouts (disko)
 
-Schemes in `schemes/` are **NixOS modules** that set `disko.devices`. They use:
+Schemes are NixOS modules under `schemes/`; they set `disko.devices` and use **`lib.mkDefault`** on things I expect to override (disk path, LUKS `passwordFile`, `allowDiscards`).
 
-- `lib.mkDefault "…"` for values installers or hosts should override easily (disk path, optional LUKS `passwordFile`, `allowDiscards`).
+Flake: `flake.diskoConfigurations.<name>` in `parts/disko.nix`.
 
-Flake outputs: `flake.diskoConfigurations.<name>` (see `parts/disko.nix`).
+| Scheme | |
+|--------|---|
+| `btrfs-efi-simple` | ESP + btrfs `/` |
+| `ext4-efi-simple` | ESP + ext4 `/` |
+| `btrfs-luks-efi-simple` | ESP + LUKS + btrfs (see scheme file) |
 
-| Scheme | Layout |
-|--------|--------|
-| `btrfs-efi-simple` | GPT: ESP + btrfs `/` |
-| `ext4-efi-simple` | GPT: ESP + ext4 `/` |
-| `btrfs-luks-efi-simple` | GPT: ESP + LUKS + btrfs `@root` → `/` |
-
-Installer: `install/bootstrap.sh` renders the device placeholder and copies the result to `hosts/<hostname>/disko-scheme.nix`, then imports `inputs.disko.nixosModules.disko` in that host’s `default.nix` so `nixos-rebuild` stays aligned with the layout.
+The ISO installer writes **`hosts/<name>/disko-scheme.nix`** and imports **`inputs.disko.nixosModules.disko`** — read `install/README.md` for the flow.

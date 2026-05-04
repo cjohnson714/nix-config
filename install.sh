@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# Refresh hardware-configuration.nix for a host registered in hosts/registry.nix, then rebuild.
+# Refresh hardware-configuration.nix for a host, then rebuild (same as running system).
 # Usage (from repo root, as root): ./install.sh [hostname]
-# Fresh ISO install: see README.md and install/bootstrap.sh
+# Prefer ./install/refresh-hardware.sh — same thing, clearer name.
+# Fresh ISO install: README.md + install/bootstrap.sh
 
 set -euo pipefail
 
