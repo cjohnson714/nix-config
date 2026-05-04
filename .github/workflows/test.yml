@@ -22,7 +22,7 @@ jobs:
         python-version: '3.11'
 
     - name: Run basic structure tests
-      run: python test-config.nix
+      run: python test-config.py
 
     - name: Run advanced tests
       run: python test-advanced.py
