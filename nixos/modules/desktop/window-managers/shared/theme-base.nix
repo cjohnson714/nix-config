@@ -6,7 +6,7 @@
   # Qt theme configuration at system level
   qt = {
     enable = true;
-    platformTheme = "gtk";
+    platformTheme = "gtk2";
     style = {
       name = "adwaita-dark";
       package = pkgs.adwaita-qt;
