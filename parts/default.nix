@@ -1,12 +1,8 @@
 {
   self,
-  config,
   ...
 }: 
-let
-  system = config.system;
-  pkgs = self.inputs.nixpkgs.legacyPackages.${system};
-in {
+{
   flake = {
     # NixOS configurations
     nixosConfigurations = {
@@ -31,16 +27,17 @@ in {
         lib = import ../lib { inherit (self.inputs) nixpkgs lib; };
       };
     };
-
+  };
+  
+  # Per-system outputs (packages, apps, devShells, checks)
+  perSystem = { system, pkgs, ... }: {
     # Packages
     packages = {
       # Custom packages can be defined here
-      # Example: custom-package = import ../packages/custom-package { inherit pkgs; };
     };
 
     # Apps
     apps = {
-      # Development shell
       dev = {
         type = "app";
         program = "${pkgs.bash}/bin/bash";
@@ -61,9 +58,8 @@ in {
 
     # Checks
     checks = {
-      # Configuration validation - using system-specific pkgs
       validate-config = pkgs.runCommand "validate-config" {} ''
-        echo "Validation placeholder - nix-instantiate requires full Nix store access"
+        echo "Validation placeholder"
         mkdir -p $out
         echo "Validation completed" > $out/result
       '';
