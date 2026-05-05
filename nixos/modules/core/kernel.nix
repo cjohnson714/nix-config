@@ -158,16 +158,14 @@
       timeout = 5;
     };
     
-    # Secure boot support
-    lanzaboote = {
-      enable = false;  # Can be enabled per host
-      pkiBundle = "/etc/secureboot";
-    };
-    
     # Kernel crash dumps (disabled for security)
     kernel.sysctl."kernel.panic" = 10;
     kernel.sysctl."kernel.panic_on_oops" = 1;
   };
+  
+  # Note: For secure boot support, import the lanzaboote module in your host configuration:
+  # imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
+  # boot.lanzaboote = { enable = true; pkiBundle = "/etc/secureboot"; };
   
   # Security modules
   security = {
