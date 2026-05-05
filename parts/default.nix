@@ -1,9 +1,10 @@
 {
   self,
-  system,
+  config,
   ...
 }: 
 let
+  system = config.system;
   pkgs = self.inputs.nixpkgs.legacyPackages.${system};
 in {
   flake = {
