@@ -3,17 +3,17 @@
   ...
 }: 
 let
-  inherit (self.inputs) nixpkgs home-manager catppuccin zen-browser;
+  inherit (self.inputs) nixpkgs nixpkgs-stable home-manager catppuccin zen-browser;
   lib = nixpkgs.lib;
   flakeRoot = self.outPath;
-  
+
   # Build hosts using the proper mk-nixos infrastructure
-  nixosConfigurations = import ../lib/build-hosts.nix { 
-    inherit inputs lib flakeRoot; 
+  nixosConfigurations = import ../lib/build-hosts.nix {
+    inherit inputs lib flakeRoot;
   };
-  
+
   inputs = {
-    inherit nixpkgs home-manager catppuccin zen-browser;
+    inherit nixpkgs nixpkgs-stable home-manager catppuccin zen-browser;
   };
 in 
 {
