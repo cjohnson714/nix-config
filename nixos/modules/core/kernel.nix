@@ -177,14 +177,9 @@
     # LSM (Linux Security Modules)
     lockKernelModules = true;
     protectKernelImage = true;
-    
-    # Virtualization security
-    virtualisation = {
-      libvirtd = {
-        enable = false;  # Can be enabled per host
-      };
-    };
   };
+  
+  # Note: Virtualization can be enabled with virtualisation.libvirtd.enable = true; at the top level
   
   # Hardware security
   hardware = {
