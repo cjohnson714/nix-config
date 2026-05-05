@@ -178,9 +178,6 @@
     lockKernelModules = true;
     protectKernelImage = true;
     
-    # Unprivileged user namespaces
-    unprivilegedUsernamespaces = false;
-    
     # Virtualization security
     virtualisation = {
       libvirtd = {
