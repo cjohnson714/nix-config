@@ -52,5 +52,6 @@
     inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [ ./parts ];
+      systems = [ "x86_64-linux" "aarch64-linux" ];
     };
 }
