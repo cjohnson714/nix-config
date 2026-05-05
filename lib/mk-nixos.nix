@@ -10,8 +10,8 @@ inputs:
   homeImports ? [ ],
 }:
 let
-  inherit (inputs) nixpkgs home-manager catppuccin zen-browser;
-  specialArgs = inputs // { inherit username system; };
+  inherit (inputs) nixpkgs nixpkgs-stable home-manager catppuccin zen-browser;
+  specialArgs = inputs // { inherit username system nixpkgs-stable; };
 
   sharedModules = [
     ../users/${username}/nixos.nix
