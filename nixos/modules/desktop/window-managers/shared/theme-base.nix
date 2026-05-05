@@ -1,27 +1,9 @@
 { pkgs, ... }:
 {
   # Shared theme configuration for all window managers
-  gtk = {
-    enable = true;
-    font = {
-      name = "SF Pro";
-      size = 10;
-    };
-    theme = {
-      name = "Catppuccin-Mocha-Standard-Blue-Dark";
-      package = pkgs.catppuccin-gtk;
-    };
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
-    };
-    cursorTheme = {
-      name = "Catppuccin-Mocha-Dark-Cursors";
-      package = pkgs.catppuccin-cursors.mochaDark;
-    };
-  };
-
-  # Qt theme configuration
+  # Note: GTK theming is handled in Home Manager, not NixOS system config
+  
+  # Qt theme configuration at system level
   qt = {
     enable = true;
     platformTheme = "gtk";
