@@ -13,8 +13,9 @@
     pamixer
   ];
 
-  # SXHKD configuration
-  xdg.configFile."sxhkd/sxhkdrc".source = pkgs.writeText "sxhkdrc" ''
+  # SXHKD configuration for new users (in /etc/skel)
+  # Note: User-specific keybindings should be configured in Home Manager
+  environment.etc."skel/.config/sxhkd/sxhkdrc".text = ''
     # =============================================================================
     # BSPWM Keybindings Configuration
     # =============================================================================
