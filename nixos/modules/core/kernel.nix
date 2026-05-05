@@ -172,10 +172,7 @@
     # AppArmor
     apparmor.enable = true;
     
-    # SELinux (alternative to AppArmor)
-    selinux = {
-      enable = false;  # Can be enabled per host
-    };
+    # Note: SELinux can be enabled by importing the appropriate module in your host configuration
     
     # LSM (Linux Security Modules)
     lockKernelModules = true;
