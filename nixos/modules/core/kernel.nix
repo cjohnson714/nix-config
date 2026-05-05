@@ -170,13 +170,7 @@
   # Security modules
   security = {
     # AppArmor
-    apparmor = {
-      enable = true;
-      enforceByDefault = true;
-      packages = with pkgs; [
-        apparmor-profiles
-      ];
-    };
+    apparmor.enable = true;
     
     # SELinux (alternative to AppArmor)
     selinux = {
