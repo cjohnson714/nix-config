@@ -55,7 +55,6 @@
       
       # Executable space protection
       "kernel.exec-shield" = 1;
-      "kernel.randomize_va_space" = 2;
       
       # Yama security module
       "kernel.yama.ptrace_scope" = 1;
