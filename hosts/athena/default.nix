@@ -8,11 +8,14 @@
   ];
 
   boot = {
-    loader.grub = {
-      enable = true;
-      device = "/dev/sdc";
-      useOSProber = true;
-      enableCryptodisk = true;
+    loader = {
+      systemd-boot.enable = false;
+      grub = {
+        enable = true;
+        device = "/dev/sdc";
+        useOSProber = true;
+        enableCryptodisk = true;
+      };
     };
   };
 
