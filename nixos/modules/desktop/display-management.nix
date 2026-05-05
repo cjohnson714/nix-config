@@ -9,9 +9,6 @@
         wayland.enable = true;
         theme = "catppuccin-macchiato";
       };
-      
-      # Display manager settings
-      startx.enable = true;
     };
 
     xserver = {
