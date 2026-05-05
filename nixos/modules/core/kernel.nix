@@ -211,10 +211,8 @@
       enable = true;
       enable32Bit = true;
     };
-    
-    # TPM support
-    tpm2 = {
-      enable = false;  # Can be enabled per host
-    };
   };
+  
+  # Note: For TPM2 support, enable the appropriate services in your host configuration:
+  # security.tpm2.enable = true;
 }
