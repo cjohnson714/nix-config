@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   # BSPWM-specific theme configuration
-  imports = [ ../shared ];
+  imports = [ ../../shared ];
 
   # BSPWM-specific theme tools
   environment.systemPackages = with pkgs; [

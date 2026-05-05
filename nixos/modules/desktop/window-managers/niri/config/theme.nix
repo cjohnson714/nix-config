@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   # Niri-specific theme configuration
-  imports = [ ../shared ];
+  imports = [ ../../shared ];
 
   # Niri-specific theme tools
   environment.systemPackages = with pkgs; [

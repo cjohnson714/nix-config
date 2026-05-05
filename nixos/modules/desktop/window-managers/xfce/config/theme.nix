@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   # XFCE-specific theme configuration
-  imports = [ ../shared ];
+  imports = [ ../../shared ];
 
   # XFCE-specific theme tools
   environment.systemPackages = with pkgs; [
