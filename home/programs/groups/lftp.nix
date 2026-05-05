@@ -7,5 +7,5 @@
     lftp
   ];
 
-  home.file.".config/lftp/rc".text = builtins.readFile ../../config/lftp/rc;
+  home.file.".config/lftp/rc".text = builtins.readFile ../../../config/lftp/rc;
 }
