@@ -1,13 +1,15 @@
 { pkgs, ... }:
 {
   # BSPWM autostart applications and services
+  # Note: User-specific BSPWM configuration should be done in Home Manager
+  
   environment.systemPackages = with pkgs; [
     # Autostart tools
     dex
   ];
 
-  # Create BSPWM autostart script
-  xdg.configFile."bspwm/bspwmrc".source = pkgs.writeText "bspwmrc" ''
+  # Create BSPWM autostart script in /etc/skel for new users
+  environment.etc."skel/.config/bspwm/bspwmrc".text = ''
     #!/bin/sh
 
     # Autostart applications
@@ -53,8 +55,9 @@
     bspc rule -a Screenkey manage=off
   '';
 
-  # Make bspwmrc executable
-  systemd.user.tmpfiles.rules = [
-    "C %h/.config/bspwm/bspwmrc 755 - - - -"
-  ];
+  # Make bspwmrc executable via activation script
+  system.activationScripts.bspwm-skel = ''
+    mkdir -p /etc/skel/.config/bspwm
+    chmod 755 /etc/skel/.config/bspwm/bspwmrc 2>/dev/null || true
+  '';
 }
