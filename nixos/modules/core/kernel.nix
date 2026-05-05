@@ -2,7 +2,7 @@
 {
   # Enhanced kernel configuration with security hardening
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
     
     # Security-hardened kernel parameters
     kernel.sysctl = {
