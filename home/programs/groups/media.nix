@@ -30,7 +30,7 @@
   };
 
   home.file.".config/mpv" = {
-    source = ../../config/mpv;
+    source = ../../../config/mpv;
     recursive = true;
   };
 

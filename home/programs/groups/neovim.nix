@@ -7,5 +7,5 @@
     lunarvim
   ];
 
-  home.file.".config/lvim/config.lua".source = ../../config/neovim/config.lua;
+  home.file.".config/lvim/config.lua".source = ../../../config/neovim/config.lua;
 }
