@@ -2,29 +2,34 @@
   self,
   ...
 }: 
+let
+  inherit (self.inputs) nixpkgs home-manager catppuccin zen-browser;
+  lib = nixpkgs.lib;
+  flakeRoot = self.outPath;
+  
+  # Build hosts using the proper mk-nixos infrastructure
+  nixosConfigurations = import ../lib/build-hosts.nix { 
+    inherit inputs lib flakeRoot; 
+  };
+  
+  inputs = {
+    inherit nixpkgs home-manager catppuccin zen-browser;
+  };
+in 
 {
   flake = {
-    # NixOS configurations
-    nixosConfigurations = {
-      athena = import ../hosts/athena {
-        inherit (self.inputs) nixpkgs home-manager catppuccin zen-browser;
-        hostRegistry = import ../hosts/registry.nix;
-        lib = import ../lib { inherit (self.inputs) nixpkgs lib; };
-      };
-      
-      nixos-vm = import ../hosts/nixos-vm {
-        inherit (self.inputs) nixpkgs home-manager catppuccin zen-browser;
-        hostRegistry = import ../hosts/registry.nix;
-        lib = import ../lib { inherit (self.inputs) nixpkgs lib; };
-      };
-    };
+    inherit nixosConfigurations;
 
-    # Home Manager configurations
+    # Home Manager configurations - reuse nixosConfigurations settings
     homeConfigurations = {
-      integrus = import ../users/integrus {
-        inherit (self.inputs) nixpkgs home-manager catppuccin zen-browser;
-        hostRegistry = import ../hosts/registry.nix;
-        lib = import ../lib { inherit (self.inputs) nixpkgs lib; };
+      integrus = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = { inherit inputs; username = "integrus"; };
+        modules = [
+          ../users/integrus/home.nix
+          catppuccin.homeModules.catppuccin
+          zen-browser.homeModules.beta
+        ];
       };
     };
   };
