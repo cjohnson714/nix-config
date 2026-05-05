@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   imports = [
     ../../nixos/modules
@@ -9,9 +9,9 @@
 
   boot = {
     loader = {
-      systemd-boot.enable = false;
+      systemd-boot.enable = lib.mkForce false;
       grub = {
-        enable = true;
+        enable = lib.mkForce true;
         device = "/dev/sdc";
         useOSProber = true;
         enableCryptodisk = true;
