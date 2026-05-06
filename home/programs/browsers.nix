@@ -1,20 +1,19 @@
 {
   pkgs,
   config,
-  username,
   ...
 }:
 {
   programs = {
     firefox = {
       enable = true;
-      profiles.${username} = {
+      profiles.${config.home.username} = {
         extensions.force = true;
       };
     };
     floorp = {
       enable = true;
-      profiles.${username} = {
+      profiles.${config.home.username} = {
         extensions.force = true;
       };
     };

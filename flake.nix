@@ -50,25 +50,6 @@
             (import ./overlays/custom-packages.nix)
           ];
         }
-
-        inputs.home-manager.nixosModules.home-manager
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            backupFileExtension = "hm-backup";
-
-            extraSpecialArgs = specialArgs;
-
-            users.${username} = {
-              imports = [
-                ./users/${username}/home.nix
-                inputs.catppuccin.homeModules.catppuccin
-                inputs.zen-browser.homeModules.beta
-              ];
-            };
-          };
-        }
       ];
 
     in
@@ -85,5 +66,10 @@
         specialArgs = specialArgs;
         modules = sharedSystemModules;
       };
+
+      homes.modules = [
+        inputs.catppuccin.homeModules.catppuccin
+        inputs.zen-browser.homeModules.beta
+      ];
     };
 }

@@ -1,16 +1,6 @@
-{ pkgs, inputs, ... }:
-
+{ ... }:
 {
   imports = [
-    ../../home/core.nix
-    ../../home/programs
-    ../../home/shell
-    ../../home/desktop/bspwm
-    ../../home/desktop/niri
+    ../../homes/x86_64-linux/integrus
   ];
-
-  programs.git.settings.user = {
-    name = "cjohnson714";
-    email = "cjohnson714@gmail.com";
-  };
 }

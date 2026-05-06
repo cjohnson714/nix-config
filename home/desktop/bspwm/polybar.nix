@@ -2,11 +2,11 @@
   pkgs,
   config,
   lib,
-  nixpkgs-stable,
+  inputs,
   ...
 }:
 let
-  stable-pkgs = nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  stable-pkgs = inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   # Make sure any programs started by polybar have the correct

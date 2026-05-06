@@ -1,8 +1,8 @@
-{ username, ... }:
+{ config, ... }:
 {
   home = {
-    inherit username;
-    homeDirectory = "/home/${username}";
+    username = "integrus";
+    homeDirectory = "/home/${config.home.username}";
     stateVersion = "25.05";
   };
 
