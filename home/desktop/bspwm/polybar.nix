@@ -6,7 +6,7 @@
   ...
 }:
 let
-  stable-pkgs = nixpkgs-stable.legacyPackages.${pkgs.system};
+  stable-pkgs = nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   # Make sure any programs started by polybar have the correct

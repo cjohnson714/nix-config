@@ -23,116 +23,67 @@
         home-manager.follows = "home-manager";
       };
     };
+
+    snowfall-lib = {
+      url = "github:snowfallorg/lib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs =
-    inputs@{
-      self,
-      nixpkgs,
-      nixpkgs-stable,
-      home-manager,
-      catppuccin,
-      zen-browser,
-      ...
-    }:
-    {
-      nixosConfigurations = {
-        nixos-vm =
-          let
-            username = "integrus";
-            system = "x86_64-linux";
+  outputs = inputs:
+    let
+      username = "integrus";
+      system = "x86_64-linux";
+      specialArgs = inputs // {
+        inherit username system;
+      };
 
-            specialArgs = inputs // {
-              inherit username system;
+      sharedSystemModules = [
+        { nixpkgs.hostPlatform = system; }
+
+        ./users/${username}/nixos.nix
+
+        inputs.catppuccin.nixosModules.catppuccin
+
+        {
+          nixpkgs.overlays = [
+            (import ./overlays/custom-packages.nix)
+          ];
+        }
+
+        inputs.home-manager.nixosModules.home-manager
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            backupFileExtension = "hm-backup";
+
+            extraSpecialArgs = specialArgs;
+
+            users.${username} = {
+              imports = [
+                ./users/${username}/home.nix
+                inputs.catppuccin.homeModules.catppuccin
+                inputs.zen-browser.homeModules.beta
+              ];
             };
-          in
-          nixpkgs.lib.nixosSystem {
-            inherit specialArgs;
-
-            modules = [
-              { nixpkgs.hostPlatform = system; }
-
-              ./hosts/nixos-vm
-
-              ./users/${username}/nixos.nix
-
-              catppuccin.nixosModules.catppuccin
-
-              {
-                nixpkgs.overlays = [
-                  (import ./overlays/custom-packages.nix)
-                ];
-              }
-
-              home-manager.nixosModules.home-manager
-              {
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
-                  backupFileExtension = "hm-backup";
-
-                  extraSpecialArgs = specialArgs;
-
-                  users.${username} = {
-                    imports = [
-                      ./users/${username}/home.nix
-                      catppuccin.homeModules.catppuccin
-                      inputs.zen-browser.homeModules.beta
-                    ];
-                  };
-                };
-              }
-            ];
           };
+        }
+      ];
 
-        athena =
-          let
-            username = "integrus";
-            system = "x86_64-linux";
+    in
+    inputs.snowfall-lib.mkFlake {
+      inherit inputs;
+      src = ./.;
 
-            specialArgs = inputs // {
-              inherit username system;
-            };
-          in
-          nixpkgs.lib.nixosSystem {
-            inherit specialArgs;
+      systems.hosts.athena = {
+        specialArgs = specialArgs;
+        modules = sharedSystemModules;
+      };
 
-            modules = [
-
-              { nixpkgs.hostPlatform = system; }
-
-              ./hosts/athena
-
-              ./users/${username}/nixos.nix
-
-              catppuccin.nixosModules.catppuccin
-
-              {
-                nixpkgs.overlays = [
-                  (import ./overlays/custom-packages.nix)
-                ];
-              }
-
-              home-manager.nixosModules.home-manager
-              {
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
-                  backupFileExtension = "hm-backup";
-
-                  extraSpecialArgs = specialArgs;
-
-                  users.${username} = {
-                    imports = [
-                      ./users/${username}/home.nix
-                      catppuccin.homeModules.catppuccin
-                      inputs.zen-browser.homeModules.beta
-                    ];
-                  };
-                };
-              }
-            ];
-          };
+      systems.hosts.nixos-vm = {
+        specialArgs = specialArgs;
+        modules = sharedSystemModules;
       };
     };
 }
