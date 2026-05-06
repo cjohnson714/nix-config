@@ -1,117 +1,148 @@
-# ❄️ NixOS Configuration
+# NixOS configuration
 
-This repository contains my evolving NixOS configuration, structured around **Home Manager** and **flakes** to maintain modularity and reproducibility. At present, this setup is optimized for use within a virtual machine, though I am progressively refining it for deployment on bare metal.
+Personal [NixOS](https://nixos.org/) system config using **flakes**, [**Home Manager**](https://github.com/nix-community/home-manager), and [**Snowfall Lib**](https://snowfall.org/) to keep outputs and directory layout consistent.
 
 ---
 
-## 🗂️ Directory Structure
+## Overview
+
+| Piece | Role |
+|--------|------|
+| **Flakes** | Pins inputs in `flake.lock`; `nix develop` / `nix build` entry point |
+| **Snowfall Lib** | `mkFlake` wiring for `nixosConfigurations`, `homeConfigurations`, and the `systems/` + `homes/` layouts |
+| **Home Manager** | User environment under `home/`; integrated via Snowfall (see `homes/`) |
+| **Hosts** | Machine-specific NixOS modules live under `systems/<arch>/<hostname>/`; thin wrappers in `hosts/` re-export them for familiar paths |
+
+### Defined hosts
+
+| Hostname | Role |
+|----------|------|
+| `athena` | Primary desktop (bare metal) |
+| `nixos-vm` | QEMU / VM profile |
+
+Common user: **integrus**. Home Manager is declared in Snowfall as a target-wide home for `x86_64-linux` (`homes/x86_64-linux/integrus/`).
+
+---
+
+## Repository layout
 
 ```
 .
-├── 📜 flake.nix         # Centralized configuration entry point
-├── 🔒 flake.lock        # Locks dependency versions for reproducibility
-├── 🏠 home              # User environment configurations managed by Home Manager
-│   ├── 🖥️ bspwm         # Window manager setup
-│   ├── 🛠️ programs      # Application configurations
-│   ├── 🚀 rofi          # Launcher settings
-│   ├── 🐚 shell         # Shell configurations
-│   ├── ⚙️ core.nix      # Core Home Manager settings
-├── 🏠 hosts             # Host-specific configurations
-│   └── 💻 nixos-vm      # Virtual machine setup
-│       ├── 📄 default.nix
-│       └── 🔧 hardware-configuration.nix
-├── 📦 modules           # System-wide settings and tweaks
-│   ├── 🖥️ bspwm.nix     # BSPWM configuration
-│   └── ⚙️ system.nix    # General system settings
-├── 👤 users             # User-specific configurations
-│   └── 🏠 integrus      # Personalized setup
-│       ├── 🏡 home.nix
-│       └── 🛠️ nixos.nix
-└── 🖼️ wallpaper.jpg     # Desktop wallpaper
+├── flake.nix                 # Snowfall mkFlake outputs and shared modules
+├── flake.lock
+├── systems/x86_64-linux/     # Canonical Snowfall system definitions
+│   ├── athena/
+│   │   ├── default.nix
+│   │   └── hardware-configuration.nix
+│   └── nixos-vm/
+│       ├── default.nix
+│       └── hardware-configuration.nix
+├── homes/x86_64-linux/
+│   └── integrus/
+│       └── default.nix       # Home Manager entry (imports home/*)
+├── hosts/                    # Compatibility shims → systems/…
+├── home/                     # Home Manager modules (programs, shell, desktop, …)
+├── modules/                  # Shared NixOS modules
+├── users/integrus/
+│   ├── home.nix              # Shim → homes/…/integrus
+│   └── nixos.nix             # Per-user NixOS snippets + Snowfall user options
+├── overlays/
+├── pkgs/
+└── config/                   # Dotfiles and static config tracked into HM
 ```
 
 ---
 
-## 🚀 Installation & Usage
+## Prerequisites
 
-This guide assumes that you have already installed NixOS and manually handled disk partitioning and mounting according to your preferences. If you have not yet installed NixOS, refer to the [official installation guide](https://nixos.org/download.html).
+- Nix with **flakes** and **`nix-command`** (see `experimental-features` in `modules/system.nix` once the system is built; the installer may still need `--extra-experimental-features "nix-command flakes"`).
+- Git, if you use flake inputs that fetch from GitHub.
 
-### 1. 📥 Clone the Repository
+---
+
+## Quick start
+
+Clone and inspect the flake:
 
 ```bash
-nix-shell -p git --run "git clone https://github.com/cjohnson714/nix-config"
+git clone https://github.com/cjohnson714/nix-config.git
 cd nix-config
+
+nix flake show    # add --extra-experimental-features "nix-command flakes" if needed
+nix flake check
 ```
 
-### 2. 🛠️ Generate a Hardware Configuration
-
-Once NixOS is installed, generate a new `hardware-configuration.nix` that reflects your system's hardware:
+Switch system configuration (pick your host):
 
 ```bash
-sudo nixos-generate-config
+sudo nixos-rebuild switch --flake .#athena
+# or
+sudo nixos-rebuild switch --flake .#nixos-vm
 ```
 
-Replace the default `hardware-configuration.nix` in this repository with the one generated for your system:
+If your shell does not yet enable flakes by default, prefix commands with:
 
 ```bash
-rm hosts/nixos-vm/hardware-configuration.nix
-cp /etc/nixos/hardware-configuration.nix hosts/nixos-vm/
+nix --extra-experimental-features "nix-command flakes" flake check
 ```
-
-This step is crucial for ensuring that the configuration properly accounts for your system's hardware, including disk layouts and network interfaces, preventing potential boot failures due to mismatched settings.
-
-Make sure you track the new hardware-configuration.nix if one didn't exist before:
-
-```bash
-git add .
-```
-
-### 3. ⚡ Apply the Configuration
-
-```bash
-sudo nixos-rebuild switch --flake .#nixos-vm --option experimental-features "nix-command flakes"
-```
-
-This command applies the system configuration, integrating both system-level settings and Home Manager user configurations. If issues arise, common culprits include incorrect disk identifiers, missing network configurations, or hardware incompatibilities.&#x20;
 
 ---
 
-## 💡 Notes
+## Hardware configuration
 
-This configuration is currently optimized for a virtual machine but will be expanded for bare-metal deployment in the future. To adapt this setup for a physical machine, define a new host entry in `flake.nix`, create a corresponding directory within `hosts/`, and adjust configurations to match your hardware specifications.
+After installation, generate hardware config on the target machine:
 
-### 🏗️ Defining a New Host
+```bash
+sudo nixos-generate-config --show-hardware-config > /tmp/hw.nix
+```
 
-To add a new host, modify `flake.nix` and introduce a corresponding directory within `hosts/`. Below is a simplified example:
+Install the file into this repo for your host, for example:
+
+```bash
+cp /tmp/hw.nix systems/x86_64-linux/<hostname>/hardware-configuration.nix
+```
+
+The matching `hosts/<hostname>/hardware-configuration.nix` re-exports that file; keep both in sync or edit only the `systems/` copy and let the shim import it.
+
+Commit the result so the flake source includes your disks and kernels:
+
+```bash
+git add systems/x86_64-linux/<hostname>/hardware-configuration.nix
+```
+
+---
+
+## Adding a new host
+
+1. Copy an existing tree under `systems/x86_64-linux/` and rename it to your hostname.
+2. Adjust `systems/x86_64-linux/<hostname>/default.nix` (hostname, disks, drivers, etc.) and install a `hardware-configuration.nix` for that machine.
+3. Register the host in `flake.nix` inside `inputs.snowfall-lib.mkFlake { ... }`:
 
 ```nix
-nixosConfigurations = {
-  my-machine = nixpkgs.lib.nixosSystem {
-    system = "x86_64-linux";
-    modules = [
-      ./hosts/my-machine
-      ./users/integrus/nixos.nix
-      home-manager.nixosModules.home-manager
-      {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.users.integrus = import ./users/integrus/home.nix;
-      }
-    ];
-  };
+systems.hosts.<hostname> = {
+  specialArgs = specialArgs;   # same pattern as athena / nixos-vm
+  modules = sharedSystemModules;
 };
 ```
 
-Ensure you create `hosts/my-machine/default.nix` and tailor it to your system’s needs.
+4. Optionally add `hosts/<hostname>/` shims that import `../../systems/x86_64-linux/<hostname>` if you want to keep the old layout for scripts or muscle memory.
+
+5. Run `nix flake check` and `sudo nixos-rebuild switch --flake .#<hostname>`.
 
 ---
 
-## 🙏 Credits & Inspiration
+## Home Manager and Snowfall
 
-This setup draws significant inspiration from [ryan4yin/nix-config](https://github.com/ryan4yin/nix-config). If you seek a more refined, well-documented configuration, I highly recommend reviewing their repository as a reference.
+- Canonical home entry: **`homes/x86_64-linux/integrus/default.nix`** (imports pieces under `home/`).
+- **`users/integrus/home.nix`** re-exports that tree for compatibility.
+- Snowfall may expose extra flake outputs (for example `snowfall`, `pkgs`); `nix flake check` may warn that some outputs are unknown to older Nix versions. That is expected and safe to ignore unless you rely on those outputs explicitly.
 
 ---
 
-## 📜 License
+## Credits
 
-This configuration is licensed under the MIT License. See the [LICENSE](LICENSE) file for details. Certain aspects of this setup are derived from [ryan4yin/nix-config](https://github.com/ryan4yin/nix-config), which is also licensed under MIT.
+Inspired by [ryan4yin/nix-config](https://github.com/ryan4yin/nix-config).
+
+## License
+
+MIT — see [LICENSE](LICENSE).
