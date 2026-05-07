@@ -1,18 +1,9 @@
-{ pkgs, username, ... }:
+{ ... }:
 {
-  users.users.${username} = {
-    isNormalUser = true;
-    description = username;
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "audio"
-      "video"
-    ];
-    shell = pkgs.zsh;
-  };
-
-  nix.settings.trusted-users = [ username ];
+  nix.settings.trusted-users = [
+    "root"
+    "@wheel"
+  ];
 
   nix.settings = {
     experimental-features = [

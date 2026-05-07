@@ -24,6 +24,11 @@
       };
     };
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     snowfall-lib = {
       url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,19 +37,22 @@
 
   outputs = inputs:
     let
-      username = "hana";
       system = "x86_64-linux";
       specialArgs = inputs // {
-        inherit username system;
+        inherit system;
       };
 
       sharedSystemModules = import ./nix/shared-system-modules.nix {
-        inherit inputs username system;
+        inherit inputs system;
       };
     in
     inputs.snowfall-lib.mkFlake {
       inherit inputs;
       src = ./.;
+
+      channels-config = {
+        allowUnfree = true;
+      };
 
       snowfall = {
         meta = {
@@ -53,14 +61,15 @@
         };
       };
 
-      systems.hosts.sakura = {
-        inherit specialArgs;
-        modules = sharedSystemModules;
-      };
+      overlays = [
+        (import ./overlays/custom-packages.nix)
+      ];
 
-      systems.hosts.nixos-vm = {
-        inherit specialArgs;
-        modules = sharedSystemModules;
+      systems.modules.nixos = sharedSystemModules;
+
+      systems.hosts = {
+        sakura.specialArgs = specialArgs;
+        nixos-vm.specialArgs = specialArgs;
       };
 
       homes.modules = with inputs; [

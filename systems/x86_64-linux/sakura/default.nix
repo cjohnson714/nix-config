@@ -10,7 +10,7 @@
 
   imports = [
     ../../../modules/system
-    ../../../modules/niri.nix
+    ../../../modules/users/hana.nix
 
     ./hardware-configuration.nix
   ];
@@ -80,8 +80,30 @@
   ];
 
   # =========================================================================
+  #                               Desktop Environment
+  # =========================================================================
+
+  # Enable Niri Wayland compositor
+  programs.niri = {
+    enable = true;
+    package = pkgs.niri;
+  };
+
+  # Display manager for Niri
+  services.displayManager.dms-greeter = {
+    enable = true;
+    compositor.name = "niri";
+  };
+
+  # =========================================================================
   #                               System Configuration
   # =========================================================================
+
+  snowfallorg.users.hana = {
+    create = true;
+    admin = true;
+    home.enable = true;
+  };
 
   system.stateVersion = "25.05";
 }
