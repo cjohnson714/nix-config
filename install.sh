@@ -15,6 +15,8 @@ fi
 # Accept an optional argument for the system name, default to "nixos-vm" if not provided
 SYSTEM_NAME="${1:-nixos-vm}"
 
+HW_DIR="systems/x86_64-linux/${SYSTEM_NAME}"
+
 echo "Generating NixOS configuration..."
 
 # Create a temporary directory
@@ -23,8 +25,10 @@ TMP_DIR=$(mktemp -d)
 # Generate the config into the temporary directory
 nixos-generate-config --dir "$TMP_DIR"
 
-# Copy ONLY the hardware-configuration.nix file
-cp "$TMP_DIR/hardware-configuration.nix" hosts/${SYSTEM_NAME}/
+mkdir -p "$HW_DIR"
+
+# Copy ONLY the hardware-configuration.nix file (canonical path for Snowfall hosts)
+cp "$TMP_DIR/hardware-configuration.nix" "$HW_DIR/"
 
 # Adjust the ownership to the original user after copying
 echo "Changing ownership of hardware-configuration.nix to the original user..."
@@ -38,7 +42,7 @@ ORIGINAL_GID=$(id -g "$ORIGINAL_USER")
 
 # Check if the IDs are valid
 if [[ -n "$ORIGINAL_UID" && "$ORIGINAL_UID" != ":" && -n "$ORIGINAL_GID" && "$ORIGINAL_GID" != ":" ]]; then
-  chown "$ORIGINAL_UID:$ORIGINAL_GID" hosts/${SYSTEM_NAME}/hardware-configuration.nix
+  chown "$ORIGINAL_UID:$ORIGINAL_GID" "$HW_DIR/hardware-configuration.nix"
 else
   echo "Warning: Could not determine original user/group IDs. Skipping ownership change."
 fi

@@ -8,9 +8,7 @@
   # NixOS System Configuration
 
   imports = [
-    ../../../modules/system.nix
-    ../../../modules/bspwm.nix
-    #../../../modules/xfce.nix
+    ../../../modules/system
 
     ../../../modules/niri.nix
 

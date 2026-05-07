@@ -2,11 +2,11 @@
 
 {
   imports = [
-    ../../../home/core.nix
-    ../../../home/programs
-    ../../../home/shell
-    ../../../home/desktop/bspwm
-    ../../../home/desktop/niri
+    ../../../modules/home
+  ];
+
+  nixpkgs.overlays = [
+    (import ../../../overlays/custom-packages.nix)
   ];
 
   programs.git.settings.user = {

@@ -32,44 +32,40 @@
 
   outputs = inputs:
     let
-      username = "integrus";
+      username = "hana";
       system = "x86_64-linux";
       specialArgs = inputs // {
         inherit username system;
       };
 
-      sharedSystemModules = [
-        { nixpkgs.hostPlatform = system; }
-
-        ./users/${username}/nixos.nix
-
-        inputs.catppuccin.nixosModules.catppuccin
-
-        {
-          nixpkgs.overlays = [
-            (import ./overlays/custom-packages.nix)
-          ];
-        }
-      ];
-
+      sharedSystemModules = import ./nix/shared-system-modules.nix {
+        inherit inputs username system;
+      };
     in
     inputs.snowfall-lib.mkFlake {
       inherit inputs;
       src = ./.;
 
-      systems.hosts.athena = {
-        specialArgs = specialArgs;
+      snowfall = {
+        meta = {
+          name = "nix-config";
+          title = "NixOS configuration";
+        };
+      };
+
+      systems.hosts.sakura = {
+        inherit specialArgs;
         modules = sharedSystemModules;
       };
 
       systems.hosts.nixos-vm = {
-        specialArgs = specialArgs;
+        inherit specialArgs;
         modules = sharedSystemModules;
       };
 
-      homes.modules = [
-        inputs.catppuccin.homeModules.catppuccin
-        inputs.zen-browser.homeModules.beta
+      homes.modules = with inputs; [
+        catppuccin.homeModules.catppuccin
+        zen-browser.homeModules.beta
       ];
     };
 }

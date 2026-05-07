@@ -1,0 +1,8 @@
+{ ... }:
+{
+  imports = [
+    ./linters
+    ./direnv
+    ./nh
+  ];
+}

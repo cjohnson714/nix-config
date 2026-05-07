@@ -1,5 +1,5 @@
-self: super:
+final: prev:
 let
-  customPkgs = import ../pkgs { pkgs = super; };
+  customPkgs = import ../pkgs { pkgs = prev; };
 in
 customPkgs

@@ -1,0 +1,8 @@
+{ ... }:
+{
+  imports = [
+    ./xsettingsd
+    ./gtk
+    ./catppuccin
+  ];
+}

@@ -1,0 +1,8 @@
+{ ... }:
+{
+  imports = [
+    ./session
+    ./zsh
+    ../terminal
+  ];
+}
