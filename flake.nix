@@ -29,6 +29,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     snowfall-lib = {
       url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -75,6 +80,7 @@
       homes.modules = with inputs; [
         catppuccin.homeModules.catppuccin
         zen-browser.homeModules.beta
+        noctalia.homeModules.default
       ];
     };
 }

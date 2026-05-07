@@ -95,6 +95,14 @@
     compositor.name = "niri";
   };
 
+  # Install noctalia-shell
+  environment.systemPackages = [ inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default ];
+
+  # Required services for noctalia-shell features
+  hardware.bluetooth.enable = true;
+  services.power-profiles-daemon.enable = true;
+  services.upower.enable = true;
+
   # =========================================================================
   #                               System Configuration
   # =========================================================================
@@ -103,6 +111,13 @@
     create = true;
     admin = true;
     home.enable = true;
+  };
+
+  # NixOS configuration for noctalia-shell
+  # Binary cache for faster builds
+  nix.settings = {
+    substituters = [ "https://noctalia.cachix.org" ];
+    trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
   };
 
   system.stateVersion = "25.05";
