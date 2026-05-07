@@ -60,6 +60,7 @@
       };
 
       snowfall = {
+        namespace = "nix-config";
         meta = {
           name = "nix-config";
           title = "NixOS configuration";
