@@ -10,7 +10,6 @@
 
   imports = [
     ../../../modules/system
-    #../../../modules/bspwm.nix
     ../../../modules/niri.nix
 
     ./hardware-configuration.nix
@@ -41,7 +40,7 @@
   #                               Networking
   # =========================================================================
 
-  networking.hostName = "athena";
+  networking.hostName = "sakura";
   networking.networkmanager.enable = true;
 
   # =========================================================================

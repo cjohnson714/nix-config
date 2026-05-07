@@ -1,7 +1,7 @@
 { config, ... }:
 {
   home = {
-    username = "integrus";
+    username = "hana";
     homeDirectory = "/home/${config.home.username}";
     stateVersion = "25.05";
   };
