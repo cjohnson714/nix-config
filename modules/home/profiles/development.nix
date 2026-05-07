@@ -12,15 +12,16 @@ in
 {
   config = mkIf cfg.development {
     # Git configuration
-    programs.git.enable = true;
-    
+    programs.git = {
+      enable = true;
+      userName = "cjohnson714";
+      userEmail = "cjohnson714@gmail.com";
+    };
+
     home.packages = with config.nixpkgs; [
       git
       gh
+      obsidian
     ];
-
-    # Git user config from base profile
-    programs.git.userName = "cjohnson714";
-    programs.git.userEmail = "cjohnson714@gmail.com";
   };
 }
